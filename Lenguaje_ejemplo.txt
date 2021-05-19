@@ -1,0 +1,24 @@
+name:
+	begin
+		DECLARE {
+			id1 : IN;
+			id2 : OUT;
+		}
+		FUZZ {
+			id1 {
+				fs1_id1 = fuzz_type(a,b,c);
+				fs2_id1 = fuzz_type(a,b,c);
+			}
+			
+			id2{
+				fs1_id2 = type(a,b,c);
+			}
+		}
+		RULES < rules_type >{
+			fs1_id1 = fs1_id2;
+			fs2_id1 = fs1_id2;
+		}
+		DEFUZZ{
+			id2 = defuzzType;
+		}
+	end;
