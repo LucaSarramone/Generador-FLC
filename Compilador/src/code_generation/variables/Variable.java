@@ -1,18 +1,18 @@
-package rules_elements;
+package code_generation.variables;
 
 import java.io.IOException;
 import java.util.Vector;
 
-import rules_elements.fuzzy_set.FuzzySet;
-import rules_elements.fuzzy_set.SingletonFS;
-import writer.Writer;
+import code_generation.variables.fuzzy_set.FuzzySet;
+import code_generation.variables.fuzzy_set.SingletonFS;
+import code_generation.writer.Writer;
 
 public class Variable {
 	
 	private String name;
 	private Vector<FuzzySet> fuzzySets;
 	
-	public Variable(String n, int min, int max) {
+	public Variable(String n) {
 		this.name = n;
 		fuzzySets = new Vector<FuzzySet>();
 	}
@@ -32,22 +32,10 @@ public class Variable {
 	public Vector<FuzzySet> getSets(){
 		return fuzzySets;
 	}
+
 	
-	public boolean checkSetName(String name) {
-		
-		for(int i=0; i<fuzzySets.size(); i++) {
-			if(fuzzySets.get(i).getName().equals(name)) {
-				return false;
-			}
-		}
-		return true;
-	}
-	
-	public boolean addSet(FuzzySet fs) {
-		if(checkSetName(fs.getName())) {
-			return fuzzySets.add(fs);
-		}
-		return false;
+	public boolean addSetVector(Vector<FuzzySet> fs) {
+		return fuzzySets.addAll(fs);
 	}
 	
 	public boolean removeSet(String name) {
@@ -115,6 +103,14 @@ public class Variable {
 			Writer.file.write(", " + ((SingletonFS)fuzzySets.get(i)).getValue());
 		}
 		Writer.file.write("}; \n");
+	}
+	
+	public String toString() {
+		String tostring = name + " - FuzzySets: ";
+		for(FuzzySet fs: fuzzySets) {
+			tostring = tostring + " - " + fs.toString();
+		}
+		return tostring;
 	}
 	
 }

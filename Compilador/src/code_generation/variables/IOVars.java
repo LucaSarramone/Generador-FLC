@@ -1,8 +1,8 @@
-package rules_elements;
+package code_generation.variables;
 
 import java.util.Vector;
 
-public class InOut {
+public class IOVars {
 	
 	public static Vector<Variable> inVars;
 	public static Vector<Variable> outVars;

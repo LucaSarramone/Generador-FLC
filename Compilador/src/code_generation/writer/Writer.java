@@ -1,4 +1,4 @@
-package writer;
+package code_generation.writer;
 
 import java.io.File;
 import java.io.FileWriter;

@@ -1,8 +1,8 @@
-package evaluation_method;
+package code_generation.evaluation_method;
 
 import java.io.IOException;
 
-import rules_elements.InOut;
+import code_generation.variables.IOVars;
 
 public abstract class EvalMethod {
 	
@@ -14,11 +14,11 @@ public abstract class EvalMethod {
 	public EvalMethod(String type) {		
 		this.type = type;
 		
-		rows = InOut.inVars.get(0).getSize();
-		for(int i = 1; i < InOut.inVars.size(); i++) {
-			rows = rows * InOut.inVars.get(i).getSize();
+		rows = IOVars.inVars.get(0).getSize();
+		for(int i = 1; i < IOVars.inVars.size(); i++) {
+			rows = rows * IOVars.inVars.get(i).getSize();
 		}
-		columns = InOut.inVars.size() + InOut.outVars.size();
+		columns = IOVars.inVars.size() + IOVars.outVars.size();
 		
 		rulesMatrix = new int[rows][columns];
 	}
@@ -37,13 +37,13 @@ public abstract class EvalMethod {
 	public void initMatrix() {
 		int varColumn = 0;
 		int repetitions = 0;
-		for(int j=0; j<InOut.inVars.size(); j++) {
-			varColumn = InOut.inVars.size() - 1 - j;
+		for(int j=0; j<IOVars.inVars.size(); j++) {
+			varColumn = IOVars.inVars.size() - 1 - j;
 			if(j == 0)
 				repetitions = 1;
 			else 
-				repetitions = j * InOut.inVars.get(varColumn).getSize();
-			InOut.inVars.get(varColumn).initColumn(rulesMatrix, repetitions, varColumn);
+				repetitions = j * IOVars.inVars.get(varColumn).getSize();
+			IOVars.inVars.get(varColumn).initColumn(rulesMatrix, repetitions, varColumn);
 		}
 	}
 	

@@ -1,9 +1,10 @@
-package rules_elements.fuzzy_set;
+package code_generation.variables.fuzzy_set;
 
 import java.io.IOException;
+import java.util.Vector;
 
-import rules_elements.InOut;
-import writer.Writer;
+import code_generation.variables.IOVars;
+import code_generation.writer.Writer;
 
 public class TriangularFS extends FuzzySet {
 	
@@ -11,6 +12,10 @@ public class TriangularFS extends FuzzySet {
 	private int b = 0;
 	private int c = 0;
 
+	public TriangularFS() {
+		super("Triangular");
+	}
+	
 	public TriangularFS(String n) {
 		super(n,"Triangular");
 	}
@@ -58,9 +63,24 @@ public class TriangularFS extends FuzzySet {
 	@Override
 	public void compileFunctionSlope(String varName) throws IOException {
 		Writer.file.write("const fixed_int " + varName + "1 = ");
-		Writer.file.write(InOut.getConverterRange() + "/(" + b + " - " + a + "); \n");
+		Writer.file.write(IOVars.getConverterRange() + "/(" + b + " - " + a + "); \n");
 		Writer.file.write("const fixed_int " + varName + "2 = ");
-		Writer.file.write(InOut.getConverterRange() + "/(" + c + " - " + b + "); \n");
+		Writer.file.write(IOVars.getConverterRange() + "/(" + c + " - " + b + "); \n");
+	}
+
+	@Override
+	public boolean setParameters(Vector<Integer> parameters) {
+		if(parameters.size() != 3)
+			return false;
+		
+		this.a = parameters.get(0);
+		this.b = parameters.get(1);
+		this.c = parameters.get(2);
+		return true;
 	}
 	
+	public String toString() {
+		return super.name + "<" + a + ", " + b + ", " + c + ">";
+	}
+
 }
