@@ -48,6 +48,14 @@ public class Variable {
 		return false;
 	}
 	
+	public boolean isSingleton() {
+		for(int i=0; i<fuzzySets.size(); i++) {
+			if(!fuzzySets.get(i).getType().equals("Singleton"))
+				return false;
+		}
+		return true;
+	}
+	
 	
 	public void compileFunctionsSlope() throws IOException {
 		String nombrePendiente = "function" + this.name;
@@ -61,29 +69,6 @@ public class Variable {
 			fuzzySets.get(i).compileFuzzSet(name, i);
 			Writer.file.write("\n\n");
 		}
-	}
-
-	public void initColumn(int[][] rulesMatrix, int repetition, int column) {
-		
-		int auxCounter = 0;
-		int fuzzySetNumber = 0;
-		for(int i=0; i<rulesMatrix.length; i++) {
-			rulesMatrix[i][column] = fuzzySetNumber % fuzzySets.size();
-			auxCounter++;
-			if(auxCounter == repetition) {
-				auxCounter = 0;
-				fuzzySetNumber++;
-			}
-		}
-		
-	}
-
-	public boolean isSingleton() {
-		for(int i=0; i<fuzzySets.size(); i++) {
-			if(!fuzzySets.get(i).getType().equals("Singleton"))
-				return false;
-		}
-		return true;
 	}
 
 	public void compileBuffer(String bufferType) throws IOException {
@@ -112,5 +97,20 @@ public class Variable {
 		}
 		return tostring;
 	}
+	
+//	public void initColumn(int[][] rulesMatrix, int repetition, int column) {
+//	
+//	int auxCounter = 0;
+//	int fuzzySetNumber = 0;
+//	for(int i=0; i<rulesMatrix.length; i++) {
+//		rulesMatrix[i][column] = fuzzySetNumber % fuzzySets.size();
+//		auxCounter++;
+//		if(auxCounter == repetition) {
+//			auxCounter = 0;
+//			fuzzySetNumber++;
+//		}
+//	}
+//	
+//}
 	
 }

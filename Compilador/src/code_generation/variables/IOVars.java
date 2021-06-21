@@ -8,6 +8,12 @@ public class IOVars {
 	public static Vector<Variable> outVars;
 	public static int converterSize = 0;
 	
+	public static void init(){
+		inVars = new Vector<Variable>();
+		outVars = new Vector<Variable>();
+	}
+
+	
 	public static void init(int size){
 		inVars = new Vector<Variable>();
 		outVars = new Vector<Variable>();
@@ -15,7 +21,7 @@ public class IOVars {
 	}
 
 	public static int getConverterRange() {
-		return (int) Math.pow(2, converterSize);
+		return (int) Math.pow(2, converterSize) - 1;
 	}
 
 	public static int getAuxTypeSize(int outVarNumber) {

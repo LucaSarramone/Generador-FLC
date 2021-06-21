@@ -6,7 +6,8 @@ import code_generation.variables.IOVars;
 import code_generation.writer.Writer;
 
 public class CentroidDefuzz extends Defuzzifier{
-
+	
+	public CentroidDefuzz() { };
 	
 	public void compileDefuzz(int varNumber) throws IOException {
 		

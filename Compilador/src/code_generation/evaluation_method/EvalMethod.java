@@ -2,8 +2,6 @@ package code_generation.evaluation_method;
 
 import java.io.IOException;
 
-import code_generation.variables.IOVars;
-
 public abstract class EvalMethod {
 	
 	protected int rulesMatrix[][];
@@ -11,19 +9,22 @@ public abstract class EvalMethod {
 	protected int columns = 0; //Number of variables
 	protected String type;
 	
-	public EvalMethod(String type) {		
+	public EvalMethod(String type, int matrix[][]) {
 		this.type = type;
-		
-		rows = IOVars.inVars.get(0).getSize();
-		for(int i = 1; i < IOVars.inVars.size(); i++) {
-			rows = rows * IOVars.inVars.get(i).getSize();
-		}
-		columns = IOVars.inVars.size() + IOVars.outVars.size();
-		
-		rulesMatrix = new int[rows][columns];
+		this.rulesMatrix = matrix;
+		rows = matrix.length;
+		columns = matrix[1].length;
 	}
 	
-	public abstract void compileEvalMethod() throws IOException;
+	public EvalMethod(String type) {		
+		this.type = type;
+	}
+	
+	public void setMatrix(int matrix[][]) {
+		this.rulesMatrix = matrix;
+		rows = matrix.length;
+		columns = matrix[1].length;
+	}
 	
 	public int getRows() {
 		return rows;
@@ -34,18 +35,18 @@ public abstract class EvalMethod {
 	}
 	
 	
-	public void initMatrix() {
-		int varColumn = 0;
-		int repetitions = 0;
-		for(int j=0; j<IOVars.inVars.size(); j++) {
-			varColumn = IOVars.inVars.size() - 1 - j;
-			if(j == 0)
-				repetitions = 1;
-			else 
-				repetitions = j * IOVars.inVars.get(varColumn).getSize();
-			IOVars.inVars.get(varColumn).initColumn(rulesMatrix, repetitions, varColumn);
-		}
-	}
+//	public void initMatrix() {
+//		int varColumn = 0;
+//		int repetitions = 0;
+//		for(int j=0; j<IOVars.inVars.size(); j++) {
+//			varColumn = IOVars.inVars.size() - 1 - j;
+//			if(j == 0)
+//				repetitions = 1;
+//			else 
+//				repetitions = j * IOVars.inVars.get(varColumn).getSize();
+//			IOVars.inVars.get(varColumn).initColumn(rulesMatrix, repetitions, varColumn);
+//		}
+//	}
 	
 	public void printMatrix() {
 		for(int i=0; i<rows; i++) {
@@ -55,5 +56,7 @@ public abstract class EvalMethod {
 			System.out.println("");
 		}
 	}
+	
+	public abstract void compileEvalMethod() throws IOException;
 
 }

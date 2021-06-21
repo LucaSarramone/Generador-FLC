@@ -17,10 +17,9 @@ public class SA4_NewNumber implements SemanticAction{
 	
 	@Override
 	public void execute() {
-		if (Compiler.table.keySet().contains(LexicalAnalyzer.currentLexeme)) 
-			Compiler.table.get(LexicalAnalyzer.currentLexeme).numberOfReferences++;
-		else 
-			Compiler.table.put(LexicalAnalyzer.currentLexeme, new LexemeInfo(LexicalAnalyzer.intToken, "number", 1));
+		
+		if (!Compiler.table.keySet().contains(LexicalAnalyzer.currentLexeme)) 
+			Compiler.table.put(LexicalAnalyzer.currentLexeme, new LexemeInfo(LexicalAnalyzer.intToken, "number"));
 
 		try {
 			reader.reset();

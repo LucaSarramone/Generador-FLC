@@ -17,12 +17,8 @@ public class SA3_CheckReservedWord implements SemanticAction{
 	@Override
 	public void execute() {
 
-		if (Compiler.table.keySet().contains(LexicalAnalyzer.currentLexeme)) {
-			if(Compiler.table.get(LexicalAnalyzer.currentLexeme).tokenNumber == LexicalAnalyzer.idToken)
-				Compiler.table.get(LexicalAnalyzer.currentLexeme).numberOfReferences++;
-		}
-		else {
-			Compiler.table.put(LexicalAnalyzer.currentLexeme, new LexemeInfo(LexicalAnalyzer.idToken, "id", 1));
+		if (!Compiler.table.keySet().contains(LexicalAnalyzer.currentLexeme)) {
+			Compiler.table.put(LexicalAnalyzer.currentLexeme, new LexemeInfo(LexicalAnalyzer.idToken, "id"));
 		}
 		
 		try {
