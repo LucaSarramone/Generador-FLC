@@ -68,14 +68,14 @@ public class TrapezoidFS extends FuzzySet {
 
 	@Override
 	public boolean setParameters(Vector<Integer> fuzzySetParameters) {
-		if(fuzzySetParameters.size() != 4) {
-			this.a = fuzzySetParameters.get(0);
-			this.b = fuzzySetParameters.get(1);
-			this.c = fuzzySetParameters.get(2);
-			this.d = fuzzySetParameters.get(3);
-			return true;
-		}
-		return false;
+		if(fuzzySetParameters.size() != 4) 
+			return false;
+
+		this.a = fuzzySetParameters.get(0);
+		this.b = fuzzySetParameters.get(1);
+		this.c = fuzzySetParameters.get(2);
+		this.d = fuzzySetParameters.get(3);
+		return true;
 	}
 
 	@Override

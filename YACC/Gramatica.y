@@ -23,7 +23,7 @@ import compiler.LexemeInfo;
 import gui.MainFrame;
 %}
 
-%token ID CONST_INT FUZZ BEGIN END DECLARE RULES IN OUT DEFUZZ TRIANGULAR SINGLETON Z_SHAPE S_SHAPE MINMAX MANDANI CENTROID
+%token ID CONST_INT FUZZ BEGIN END DECLARE RULES IN OUT DEFUZZ TRIANGULAR SINGLETON Z_SHAPE S_SHAPE MINMAX MANDANI CENTROID TRAPEZOID
 
 %start program
 
@@ -93,6 +93,7 @@ fuzz_type : TRIANGULAR { currentFuzzSet = new TriangularFS(); }
 		  | SINGLETON { currentFuzzSet = new SingletonFS(); } 
 		  | S_SHAPE { currentFuzzSet = new SShapeFS(); }
 		  | Z_SHAPE { currentFuzzSet = new ZShapeFS(); }
+		  | TRAPEZOID { currentFuzzSet = new TrapezoidFS();}
 
 parameter_list : parameter_list ',' parameter { addFuzzySetParameter($3.sval); }
 			   | parameter { fuzzySetParameters.clear();
@@ -512,7 +513,7 @@ private void checkMissingRules(){
 private void addDefuzzifier(String var){
 	
 	if(Compiler.table.containsKey(var)){
-	LexemeInfo outVar = Compiler.table.get(var);
+		LexemeInfo outVar = Compiler.table.get(var);
 		if(outVar.fuzzDeclared && outVar.varType.equals("OUT") &&  outVar.idRole.equals("variable")){
 			if(!outVar.defuzzDeclared){
 				defuzz.put(var, currentDefuzz);
@@ -556,6 +557,4 @@ public void generateCode(){
 		CodeGenerator codeGenerator = new CodeGenerator(method, defuzz);
 		codeGenerator.generate(outpath);
 	}
-	
-
 }

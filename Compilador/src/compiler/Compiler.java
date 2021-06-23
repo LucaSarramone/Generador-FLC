@@ -28,13 +28,13 @@ public class Compiler {
 		table.put("MINMAX", new LexemeInfo(271, "reserved"));
 		table.put("MANDANI", new LexemeInfo(272, "reserved"));
 		table.put("CENTROID", new LexemeInfo(273, "reserved"));
+		table.put("TRAPEZOID", new LexemeInfo(274, "reserved"));
 	}
 	
 	public void compile(String path) {
 		initTable();
 		IOVars.init();
 		Parser parser = new Parser(path);
-		parser.debugMode();
 		int status = parser.compile();
 		if(status == 0 || parser.hasErrors())
 			MainFrame.printOutput("Finish!");

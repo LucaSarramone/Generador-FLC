@@ -29,6 +29,6 @@ public class IOVars {
 	}
 
 	public static int getOutTypeSize() {	
-		return outVars.size() * converterSize + 1; 
+		return outVars.size() * converterSize; 
 	}
 }
