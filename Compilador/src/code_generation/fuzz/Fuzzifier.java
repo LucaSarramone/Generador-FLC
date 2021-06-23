@@ -29,7 +29,11 @@ public class Fuzzifier {
 		for(int i=1; i<IOVars.inVars.size(); i++) {
 			Writer.file.write(", fixed_int " + IOVars.inVars.get(i).getName());
 		}
-		Writer.file.write(") { \n \n");
+		Writer.file.write(") { \n");
+		Writer.file.write(" #pragma HLS PIPELINE \n");
+		for(int i=0; i<IOVars.inVars.size();	i++)
+			Writer.file.write(" #pragma #pragma HLS ARRAY_PARTITION variable=" + IOVars.inVars.get(i).getName() + "Fuzz complete dim=1 \n" );
+		Writer.file.write("\n");
 		
 		for(int i=0; i<IOVars.inVars.size(); i++) {
 			Writer.file.write(" //"+ IOVars.inVars.get(i).getName() +"------------------------------------\n\n");

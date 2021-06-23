@@ -3,6 +3,7 @@ package compiler;
 import java.util.HashMap;
 
 import code_generation.variables.IOVars;
+import gui.MainFrame;
 import parser.Parser;
 
 public class Compiler {
@@ -29,26 +30,17 @@ public class Compiler {
 		table.put("CENTROID", new LexemeInfo(273, "reserved"));
 	}
 	
-	public static void main(String args[]) {
+	public void compile(String path) {
 		initTable();
 		IOVars.init();
-		Parser parser = new Parser("C:\\Users\\Luca\\Downloads\\CompilerTest\\Lenguaje_ejemplo.txt");
-		//parser.debugMode();
-		parser.compile();
-		printTable();
+		Parser parser = new Parser(path);
+		parser.debugMode();
+		int status = parser.compile();
+		if(status == 0 || parser.hasErrors())
+			MainFrame.printOutput("Finish!");
+		else
+			MainFrame.printOutput("Process finished with errors. Aborting.");
 
 	}
-	
-	public static void printTable() {
-		System.out.println();
-		System.out.println();
-		System.out.println(" TABLA DE SIMBOLOS ----------------------------");
-		for(String s: table.keySet()) {
-			
-			if(table.get(s).tokenType.equals("id")) {
-				System.out.print(s + " = ");
-				System.out.println(table.get(s).toString());
-			}
-		}
-	}
+
 }

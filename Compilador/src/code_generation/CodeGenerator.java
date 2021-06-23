@@ -58,7 +58,10 @@ public class CodeGenerator {
 			 for(int i=1; i<IOVars.inVars.size(); i++) {
 				 Writer.file.write(", fixed_int " + IOVars.inVars.get(i).getName());
 			 }
-			 Writer.file.write("){ \n\n");
+			 Writer.file.write("){ \n");
+			 Writer.file.write(" #pragma HLS DATAFLOW \n");
+			 Writer.file.write("\n");
+			 
 			 Writer.file.write("\tfuzzifier(" + IOVars.inVars.get(0).getName());
 			 for(int i=1; i<IOVars.inVars.size(); i++) {
 				 Writer.file.write(", " + IOVars.inVars.get(i).getName());

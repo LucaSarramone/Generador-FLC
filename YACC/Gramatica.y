@@ -20,6 +20,7 @@ import code_generation.variables.Variable;
 import code_generation.variables.fuzzy_set.*;
 import compiler.Compiler;
 import compiler.LexemeInfo;
+import gui.MainFrame;
 %}
 
 %token ID CONST_INT FUZZ BEGIN END DECLARE RULES IN OUT DEFUZZ TRIANGULAR SINGLETON Z_SHAPE S_SHAPE MINMAX MANDANI CENTROID
@@ -30,22 +31,29 @@ import compiler.LexemeInfo;
 
 	/* Base ---------------------------------------------- */
 	
-program : fuzzy_controler_set { generateCode(); }
+program : fuzzy_controller_set { generateCode(); }
 ;
 
-fuzzy_controler_set : fuzzy_controler {yyout("-- Controlador");}
-					| fuzzy_controler_set fuzzy_controler {yyout("-- Controlador");}
+fuzzy_controller_set : fuzzy_controller {yyout("-- Controller");}
+					| fuzzy_controller_set fuzzy_controller {yyout("-- Controller");}
 ;
 
-fuzzy_controler : ID '<' CONST_INT '>'':' BEGIN fuzzy_controler_body END { IOVars.converterSize = Integer.parseInt($3.sval); }
+fuzzy_controller : ID '<' CONST_INT '>'':' BEGIN fuzzy_controller_body END { IOVars.converterSize = Integer.parseInt($3.sval); }
+				| ID ':' BEGIN fuzzy_controller_body END { yyerror("Missing converter size for this controller"); }
 ;
 
-fuzzy_controler_body : var_declarations fuzz_part rules_part defuzz_part {}
+fuzzy_controller_body : var_declarations fuzz_part rules_part defuzz_part {}
+					 | fuzz_part rules_part defuzz_part {yyerror("Missing declaration segment");} //SYNTAX ERROR RULE
+					 | var_declarations rules_part defuzz_part {yyerror("Missing fuzz segment");} //SYNTAX ERROR RULE
+					 | var_declarations fuzz_part defuzz_part {yyerror("Missing rules segment");} //SYNTAX ERROR RULE
+					 | var_declarations fuzz_part rules_part {yyerror("Missing defuzz segment");} //SYNTAX ERROR RULE
 ;
 
 	/* Declare ---------------------------------------------- */
 	
 var_declarations : DECLARE '{' var_list '}' { yyout("-- Declare"); }
+				 | DECLARE '{' '}' {yyerror("Missing declaration body");} //SYNTAX ERROR RULE
+				 | DECLARE {yyerror("Missing declaration body");} //SYNTAX ERROR RULE
 
 var_list : var_list var {}
 		 | var {}
@@ -60,14 +68,16 @@ var_type : IN | OUT {}
 
 	/* Fuzz ---------------------------------------------- */
 	
-fuzz_part : FUZZ '{' fuzz_declaration_list '}' { checkMissingDeclarations(); generateRulesCombinations(); yyout("-- Fuzzificador"); }
+fuzz_part : FUZZ '{' fuzz_declaration_list '}' { checkMissingDeclarations(); yyout("-- Fuzz"); }
+		  | FUZZ '{' '}' {yyerror("Missing fuzz body");} //SYNTAX ERROR RULE
+		  | FUZZ {yyerror("Missing fuzz body");} //SYNTAX ERROR RULE
 ;
 
 fuzz_declaration_list : fuzz_declaration_list fuzz_declaration {}
 					  | fuzz_declaration
 ;
 
-fuzz_declaration : ID '{' fuzzy_set_list '}' ';' { addFuzzVariable($1.sval); }
+fuzz_declaration : ID '{' fuzzy_set_list '}' ';' { addVarFuzzDefinition($1.sval); }
 				 | ID '{' fuzzy_set_list '}' { yyerror("Missing semicolon"); } //SYNTAX ERROR RULE
 ;
 
@@ -96,21 +106,25 @@ parameter : CONST_INT {}
 
 rules_part : RULES '<' rule_method '>' '{' rules_form rules_set '}' { checkMissingRules();
 																	 if(!errorsFound) { method.setMatrix(this.rulesMatrix); }; 
-																	 yyout("-- Motor de reglas");}
+																	 yyout("-- Rules");}
+		   | RULES '<' rule_method '>' '{' rules_set '}' { yyerror("Missing rules form"); } //SYNTAX ERROR RULE
+		   | RULES '<' rule_method '>' '{' '}' { yyerror("Missing rules body"); } //SYNTAX ERROR RULE
+		   | RULES '<' rule_method '>' { yyerror("Missing rules body"); } //SYNTAX ERROR RULE
+		   | RULES '{' rules_form rules_set '}' { yyerror("Missing rules evaluation method"); } //SYNTAX ERROR RULE
 ;
 
 rule_method : MINMAX {method = new MinMaxMethod();}
 			| MANDANI {method = new MinMaxMethod();}
 ;
 
-rules_form : '(' expression '=' result ')' { checkRulesForm(); initMatrix();}
+rules_form : '(' expression '=' result ')' { checkRulesForm(); if(!errorsFound) { generateRulesCombinations(); initMatrix(); }}
 ;
 
 rules_set : rules_set rule {}
 		  | rule {}
 ;
 
-rule : expression '=' result ';'  { if(!ruleFormErrors){ checkRule(); } }
+rule : expression '=' result ';'  { if(!ruleFormErrors && rulesFormDefined){ checkRule(); } }
 	 | expression '=' result  { yyerror("Missing semicolon"); } //SYNTAX ERROR RULE
 
 expression : ID { expressionList.clear(); addExpression($1.sval);}
@@ -123,7 +137,9 @@ result : ID {resultList.clear(); addResult($1.sval);}
 
 	/* Defuzz ---------------------------------------------- */
 
-defuzz_part : DEFUZZ '{' defuzz_declaration_list '}' {checkMissingDefuzz(); yyout("-- Defuzzificador");}
+defuzz_part : DEFUZZ '{' defuzz_declaration_list '}' {checkMissingDefuzz(); yyout("-- Defuzz");}
+			| DEFUZZ '{' '}' { yyerror("Missing defuzz body"); } //SYNTAX ERROR RULE
+			| DEFUZZ { yyerror("Missing defuzz body"); } //SYNTAX ERROR RULE
 ;
 
 defuzz_declaration_list : defuzz_declaration_list defuzz_declaration {}
@@ -162,6 +178,7 @@ private int numberOfDefuzzifiers = 0;
 private boolean errorsFound = false; //Any error found -> Avoid generating code
 private boolean fuzzSetErrors = false; //Errors found inside a fuzz declaration -> Avoid creating faulty var
 private boolean ruleFormErrors = false; //Errors found on rule form sentence -> Avoid cheking list of rules
+private boolean rulesFormDefined = false; //Rules form is not defined -> Used for syntax errors 
 
 
 // General ----------------------------------------------
@@ -177,12 +194,12 @@ public Parser (String filePath) {
 }
 
 public void yyout(String s) {
-	System.out.println(LexicalAnalyzer.lineNumber + " DEBUG: " + s);
+	MainFrame.printOutput("Line: " + LexicalAnalyzer.lineNumber + " DEBUG: " + s);
 }
 	
 public void yyerror(String s) {
 	errorsFound = true;
-	System.out.println(LexicalAnalyzer.lineNumber + " ERROR: " + s);
+	MainFrame.printOutput("Line: " + LexicalAnalyzer.lineNumber + " ERROR: " + s);
 }
 
 public void debugMode(){
@@ -199,6 +216,10 @@ public int compile(){
 
 public void setLexeme(ParserVal lexeme){
 	this.yylval = lexeme;
+}
+
+public boolean hasErrors(){
+	return errorsFound;
 }
 //---------------------------------------------------------
 
@@ -263,7 +284,7 @@ private void changeFuzzySetTableParams(String varName){
 }
 
 
-private void addFuzzVariable(String varId){
+private void addVarFuzzDefinition(String varId){
 	if(!fuzzSetErrors){
 		if(Compiler.table.get(varId).varDeclared){
 			if(!Compiler.table.get(varId).fuzzDeclared){
@@ -275,6 +296,7 @@ private void addFuzzVariable(String varId){
 				else
 					IOVars.outVars.add(newVar);
 				Compiler.table.get(varId).fuzzDeclared = true;
+				Compiler.table.get(varId).varSize = fuzzySetList.size();
 				numberOfVars--;
 			}
 			else
@@ -294,6 +316,7 @@ private void checkMissingDeclarations(){
 
 }
 //---------------------------------------------------------
+
 // Rules --------------------------------------------------
 private void generateRulesCombinations() {
 	
@@ -320,7 +343,7 @@ private void generateRulesCombinations() {
 			for(int i=positions.length - 1; i>=0; i--) {
 				if(nextElem) {
 					positions[i]++;
-					if(positions[i] == IOVars.inVars.get(i).getSize()) 
+					if(positions[i] == Compiler.table.get(ruleOrder[i]).varSize)
 						positions[i] = 0;
 					else
 						nextElem = false;
@@ -358,7 +381,7 @@ private void checkRulesForm(){
 			}
 		}
 		else{
-			if (!inVar.fuzzDeclared) yyerror("Variable " + expressionList.get(i) + " was not declared");
+			if (!inVar.fuzzDeclared) yyerror("Variable " + expressionList.get(i) + " was not declared or fuzz defined");
 			else{
 				if (!inVar.varType.equals("IN")) yyerror("Variable " + expressionList.get(i) + " is an ouput variable");
 				if (!inVar.idRole.equals("variable")) yyerror("Variable " + expressionList.get(i) + " is not a variable");
@@ -371,7 +394,14 @@ private void checkRulesForm(){
 		yyerror("Missing input variables on left side");
 		ruleFormErrors = true;
 	}
+	else{
+		if(inVarsUsed == 1){
+			yyerror("Rules must have more than one input variable");
+			ruleFormErrors = true;
+		}
+	}
 	
+
 	int outVarsUsed = 0;
 	for(int i=0; i<resultList.size(); i++){
 		LexemeInfo outVar = Compiler.table.get(resultList.get(i));
@@ -387,7 +417,7 @@ private void checkRulesForm(){
 			}
 		}
 		else{
-			if (!outVar.fuzzDeclared) yyerror("Variable " + resultList.get(i) + " was not declared");
+			if (!outVar.fuzzDeclared) yyerror("Variable " + resultList.get(i) + " was not declared or fuzz defined");
 			else{				
 				if (!outVar.varType.equals("OUT")) yyerror("Variable " + resultList.get(i) + " is an input variable");
 				if (!outVar.idRole.equals("variable")) yyerror("Variable " + resultList.get(i) + " is not a variable");
@@ -401,21 +431,23 @@ private void checkRulesForm(){
 		yyerror("Missing output variables on right side");
 		ruleFormErrors = true;
 	}
+	
+	rulesFormDefined = true;
 }
 
 private void initMatrix(){
-	if(!errorsFound){ 
-		int rows = 0;
-		int columns = 0;
-		
-		rows = IOVars.inVars.get(0).getSize();
-		for(int i = 1; i < IOVars.inVars.size(); i++) {
-			rows = rows * IOVars.inVars.get(i).getSize();
-		}
-		columns = IOVars.inVars.size() + IOVars.outVars.size();
-		
-		rulesMatrix = new int[rows][columns];
+
+	int rows = 0;
+	int columns = 0;
+	
+	rows = IOVars.inVars.get(0).getSize();
+	for(int i = 1; i < IOVars.inVars.size(); i++) {
+		rows = rows * IOVars.inVars.get(i).getSize();
 	}
+	columns = IOVars.inVars.size() + IOVars.outVars.size();
+	
+	rulesMatrix = new int[rows][columns];
+	
 }
 
 private void checkRule(){
@@ -492,7 +524,7 @@ private void addDefuzzifier(String var){
 		}
 		else{
 			if (!outVar.fuzzDeclared) 
-				yyerror("Variable " + var + " was not declared");
+				yyerror("Variable " + var + " was not declared or fuzz defined");
 			else{				
 				if (!outVar.varType.equals("OUT")) 
 					yyerror("Variable " + var + " is an input variable");
@@ -513,26 +545,13 @@ private void checkMissingDefuzz(){
 
 //---------------------------------------------------------
 public void generateCode(){
-	// for(int i=0; i<IOVars.inVars.size(); i++)
-		// yyout(IOVars.inVars.get(i).toString());
-	
-	// for(int i=0; i<IOVars.outVars.size(); i++)
-		// yyout(IOVars.outVars.get(i).toString());
-	
-	if(!errorsFound)
-		for(int i=0; i<rulesMatrix.length; i++) {
-			for(int j=0; j<rulesMatrix[i].length; j++) {
-				System.out.print(rulesMatrix[i][j] + " | ");
-			}
-			System.out.println("");
-		}
 	
 	if(!errorsFound){
 		
 		String[] stringArray = filePath.split("\\.");
 		stringArray[stringArray.length - 2] = stringArray[stringArray.length - 2] + "_output";
 		String outpath = String.join(".", stringArray);
-		yyout(outpath);
+		MainFrame.printOutput("Output filepath: " + outpath);
 		
 		CodeGenerator codeGenerator = new CodeGenerator(method, defuzz);
 		codeGenerator.generate(outpath);

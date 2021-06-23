@@ -38,7 +38,8 @@ import code_generation.variables.Variable;
 import code_generation.variables.fuzzy_set.*;
 import compiler.Compiler;
 import compiler.LexemeInfo;
-//#line 39 "Parser.java"
+import gui.MainFrame;
+//#line 40 "Parser.java"
 
 
 
@@ -195,106 +196,130 @@ public final static short MANDANI=272;
 public final static short CENTROID=273;
 public final static short YYERRCODE=256;
 final static short yylhs[] = {                           -1,
-    0,    1,    1,    2,    3,    4,    8,    8,    9,    9,
-   10,   10,    5,   11,   11,   12,   12,   13,   13,   14,
-   14,   15,   15,   15,   15,   16,   16,   17,    6,   18,
-   18,   19,   20,   20,   23,   23,   21,   21,   22,   22,
-    7,   24,   24,   25,   25,   26,
+    0,    1,    1,    2,    2,    3,    3,    3,    3,    3,
+    4,    4,    4,    8,    8,    9,    9,   10,   10,    5,
+    5,    5,   11,   11,   12,   12,   13,   13,   14,   14,
+   15,   15,   15,   15,   16,   16,   17,    6,    6,    6,
+    6,    6,   18,   18,   19,   20,   20,   23,   23,   21,
+   21,   22,   22,    7,    7,    7,   24,   24,   25,   25,
+   26,
 };
 final static short yylen[] = {                            2,
-    1,    1,    2,    8,    4,    4,    2,    1,    4,    3,
-    1,    1,    4,    2,    1,    5,    4,    2,    1,    7,
-    6,    1,    1,    1,    1,    3,    1,    1,    8,    1,
-    1,    5,    2,    1,    4,    3,    1,    3,    1,    3,
-    4,    2,    1,    4,    3,    1,
+    1,    1,    2,    8,    5,    4,    3,    3,    3,    3,
+    4,    3,    1,    2,    1,    4,    3,    1,    1,    4,
+    3,    1,    2,    1,    5,    4,    2,    1,    7,    6,
+    1,    1,    1,    1,    3,    1,    1,    8,    7,    6,
+    4,    5,    1,    1,    5,    2,    1,    4,    3,    1,
+    3,    1,    3,    4,    3,    1,    2,    1,    4,    3,
+    1,
 };
 final static short yydefred[] = {                         0,
-    0,    0,    0,    2,    0,    3,    0,    0,    0,    0,
-    0,    0,    0,    0,    4,    0,    0,    0,    0,    8,
-    0,    0,    0,    0,    6,    7,    0,    0,   15,    0,
-    0,    5,   11,   12,    0,    0,   13,   14,   30,   31,
-    0,    0,    9,    0,    0,   19,    0,    0,    0,   43,
-    0,    0,   18,    0,    0,   41,   42,   22,   23,   25,
-   24,    0,   16,    0,    0,   46,    0,    0,   37,    0,
-    0,    0,   34,   44,   28,    0,   27,    0,    0,   29,
-   33,    0,    0,    0,   39,    0,   38,    0,   20,   26,
-   32,    0,   35,   40,
+    0,    0,    0,    2,    0,    0,    3,    0,    0,    0,
+    0,    0,    0,    0,    0,    0,    0,    0,    5,    0,
+    0,    0,    0,    0,    0,   21,    0,   24,    0,   12,
+    0,   15,    0,    0,    0,    0,    9,    8,    7,    0,
+    0,   20,   23,    0,   11,   14,   43,   44,    0,    0,
+    0,    0,    6,    4,    0,    0,   28,   18,   19,    0,
+    0,   50,    0,    0,    0,   47,    0,   55,    0,   58,
+    0,    0,   27,   16,    0,    0,    0,   42,   46,    0,
+    0,   54,   57,   31,   32,   34,   33,    0,   25,   40,
+    0,    0,   52,    0,   51,    0,   61,    0,    0,    0,
+   39,   45,    0,   48,   59,   37,    0,   36,   38,   53,
+    0,    0,   29,   35,
 };
 final static short yydgoto[] = {                          2,
-    3,    4,   12,   13,   17,   23,   32,   19,   20,   35,
-   28,   29,   45,   46,   62,   76,   77,   41,   65,   71,
-   72,   86,   73,   49,   50,   67,
+    3,    4,   13,   14,   15,   22,   37,   31,   32,   60,
+   27,   28,   56,   57,   88,  107,  108,   49,   51,   64,
+   65,   94,   66,   69,   70,   98,
 };
-final static short yysindex[] = {                      -238,
-  -34,    0, -238,    0, -231,    0,  -30,  -25, -232, -228,
-  -88, -225, -222, -219,    0,  -84, -223,  -17, -125,    0,
- -215,  -16, -221, -242,    0,    0,  -80, -124,    0, -247,
-  -77,    0,    0,    0,  -12, -209,    0,    0,    0,    0,
-  -13, -207,    0,  -10, -123,    0,  -71,   -8, -122,    0,
- -255,   -5,    0,   15, -217,    0,    0,    0,    0,    0,
-    0,   17,    0, -199, -199,    0,    1, -197,    0,  -32,
- -121,  -31,    0,    0,    0,  -24,    0, -198, -195,    0,
-    0, -198,    4, -197,    0,  -23,    0,  -28,    0,    0,
-    0, -193,    0,    0,
+final static short yysindex[] = {                      -207,
+   -2,    0, -207,    0, -197, -234,    0,    1, -215,    4,
+  -59,  -58, -195, -232, -196, -192, -124, -123,    0,  -44,
+ -217, -194, -194, -215,  -54,    0, -122,    0,   12,    0,
+ -121,    0, -238,   31,  -50, -194,    0,    0,    0, -187,
+ -182,    0,    0, -205,    0,    0,    0,    0,   14, -180,
+ -180, -120,    0,    0,   17, -119,    0,    0,    0,   21,
+  -42,    0,  -24, -118,  -23,    0,   22,    0, -117,    0,
+ -227,   23,    0,    0,  -40, -173, -171,    0,    0, -173,
+ -186,    0,    0,    0,    0,    0,    0,   48,    0,    0,
+ -180, -116,    0,    7,    0,  -20,    0,   30, -168, -115,
+    0,    0, -166,    0,    0,    0,   11,    0,    0,    0,
+   33, -168,    0,    0,
 };
 final static short yyrindex[] = {                         0,
-    0,    0,   65,    0,    0,    0,    0,    0,    0,    0,
+    0,    0,   93,    0,    0,    0,    0,    0,    0,    0,
+ -209, -231,    0,    0,    0,    0,    0,    0,    0,    0,
     0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
+    0,    0,    0,    0, -167, -165,    0,    0,    0,    0,
     0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
-    0,    0,    0,    0, -120,    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,    0,    0,    0,    0, -114,
+ -236,    0,    0,    0,    0,    0,    0,    0,    0,    0,
+    0, -113,    0,    0,    0,    0,    0,    0,    0,    0,
     0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
-    0, -119,    0,    0,    0,    0,    0,    0,    0,    0,
-    0,    0,    0,    0,    0,    0, -118,    0,    0,    0,
+    0,    0,    0,    0,    0, -112,    0, -111,    0,    0,
     0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
-    0,    0, -117,    0,    0,    0,    0, -116,    0,    0,
-    0,    0,    0,    0,
+ -110,    0,    0,    0,
 };
 final static short yygindex[] = {                         0,
-    0,   63,    0,    0,    0,    0,    0,    0,   48,    0,
-    0,   40,    0,   24,    0,    0,  -14,    0,    0,    0,
-    7,   -9,    3,    0,   23,    0,
+    0,   92,   73,    0,   84,    8,   -1,    0,   68,    0,
+    0,   74,    0,   44,    0,    0,  -10,    0,   28,  -55,
+   54,   25,  -47,    0,   37,    0,
 };
-final static int YYTABLESIZE=141;
+final static int YYTABLESIZE=217;
 static short yytable[];
 static { yytable();}
 static void yytable(){
-yytable = new short[]{                         25,
-   37,   52,   56,   80,   10,   17,   45,   21,   36,   79,
-   79,   58,   59,   60,   61,   92,   83,   91,    1,   84,
-   92,   33,   34,   39,   40,    5,    7,   10,   78,   82,
-   93,    8,    9,   11,   14,   15,   16,   18,   21,   22,
-   24,   27,   36,   30,   31,   42,   43,   44,   47,   48,
-   51,   54,   55,   63,   64,   66,   68,   69,   85,   74,
-   75,   87,   89,   94,    1,    6,   26,   38,   53,   90,
-   70,   57,   88,   81,    0,    0,    0,    0,    0,    0,
+yytable = new short[]{                         50,
+   26,   30,   42,   45,   68,   72,   78,   82,  101,  109,
+   17,   26,   49,   60,   30,   33,   79,   77,   77,   92,
+   38,   39,   23,  103,   41,    9,   11,   13,   36,   41,
+   20,   13,   47,   48,   53,  100,   76,   80,  104,   84,
+   85,   86,   87,   11,   79,   20,   12,  102,   35,    1,
+  103,  111,   79,   22,  112,    6,   22,    5,   58,   59,
+    8,   16,   10,   17,   18,   19,   20,   24,   41,   44,
+   50,   35,   52,   54,   55,   61,   62,   71,   34,   74,
+   75,   89,   81,   93,   90,   95,   97,   99,  105,  106,
+  110,  113,    1,   56,    7,   10,   40,   21,   46,   73,
+   43,  114,   91,   63,   96,   83,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
+    0,    0,   25,   29,   25,   29,   67,   55,   62,   67,
+   62,   62,   17,   26,   49,   60,   30,    0,    0,    0,
     0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
     0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
     0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
     0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
     0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
-    0,   18,   27,   44,   48,   69,   10,   17,   45,   21,
-   36,
+    0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
+    0,    0,    0,    0,    0,    0,   62,
 };
 }
 static short yycheck[];
 static { yycheck(); }
 static void yycheck() {
-yycheck = new short[] {                        125,
-  125,  125,  125,  125,  125,  125,  125,  125,  125,   42,
-   42,  267,  268,  269,  270,   44,   41,   41,  257,   44,
-   44,  264,  265,  271,  272,   60,  258,  260,   61,   61,
-   59,   62,   58,  262,  123,  261,  259,  257,  123,  263,
-   58,  257,  123,   60,  266,  123,   59,  257,   62,  257,
-   61,  123,   61,   59,   40,  273,   40,  257,  257,   59,
-  258,  257,   59,  257,    0,    3,   19,   28,   45,   84,
-   64,   49,   82,   71,   -1,   -1,   -1,   -1,   -1,   -1,
+yycheck = new short[] {                         40,
+  125,  125,  125,  125,  125,  125,  125,  125,  125,  125,
+  125,  125,  125,  125,  125,   60,   64,   42,   42,   75,
+   22,   23,   15,   44,  261,  260,  259,  259,   21,  266,
+  263,  263,  271,  272,   36,   91,   61,   61,   59,  267,
+  268,  269,  270,  259,   92,  263,  262,   41,  266,  257,
+   44,   41,  100,  263,   44,   58,  266,   60,  264,  265,
+  258,   58,   62,  123,  123,  261,  263,  260,  123,   58,
+   40,  266,  123,  261,  257,   62,  257,   61,  123,   59,
+  123,   59,   61,  257,  125,  257,  273,   40,   59,  258,
+  257,   59,    0,  261,    3,  261,   24,   14,   31,   56,
+   27,  112,   75,   50,   80,   69,   -1,   -1,   -1,   -1,
+   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,
+   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,
+   -1,   -1,  257,  257,  257,  257,  257,  257,  257,  257,
+  257,  257,  257,  257,  257,  257,  257,   -1,   -1,   -1,
    -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,
    -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,
    -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,
    -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,
    -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,
-   -1,  257,  257,  257,  257,  257,  257,  257,  257,  257,
-  257,
+   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,   -1,
+   -1,   -1,   -1,   -1,   -1,   -1,  257,
 };
 }
 final static short YYFINAL=2;
@@ -322,12 +347,19 @@ null,null,null,null,null,null,null,"ID","CONST_INT","FUZZ","BEGIN","END",
 };
 final static String yyrule[] = {
 "$accept : program",
-"program : fuzzy_controler_set",
-"fuzzy_controler_set : fuzzy_controler",
-"fuzzy_controler_set : fuzzy_controler_set fuzzy_controler",
-"fuzzy_controler : ID '<' CONST_INT '>' ':' BEGIN fuzzy_controler_body END",
-"fuzzy_controler_body : var_declarations fuzz_part rules_part defuzz_part",
+"program : fuzzy_controller_set",
+"fuzzy_controller_set : fuzzy_controller",
+"fuzzy_controller_set : fuzzy_controller_set fuzzy_controller",
+"fuzzy_controller : ID '<' CONST_INT '>' ':' BEGIN fuzzy_controller_body END",
+"fuzzy_controller : ID ':' BEGIN fuzzy_controller_body END",
+"fuzzy_controller_body : var_declarations fuzz_part rules_part defuzz_part",
+"fuzzy_controller_body : fuzz_part rules_part defuzz_part",
+"fuzzy_controller_body : var_declarations rules_part defuzz_part",
+"fuzzy_controller_body : var_declarations fuzz_part defuzz_part",
+"fuzzy_controller_body : var_declarations fuzz_part rules_part",
 "var_declarations : DECLARE '{' var_list '}'",
+"var_declarations : DECLARE '{' '}'",
+"var_declarations : DECLARE",
 "var_list : var_list var",
 "var_list : var",
 "var : ID ':' var_type ';'",
@@ -335,6 +367,8 @@ final static String yyrule[] = {
 "var_type : IN",
 "var_type : OUT",
 "fuzz_part : FUZZ '{' fuzz_declaration_list '}'",
+"fuzz_part : FUZZ '{' '}'",
+"fuzz_part : FUZZ",
 "fuzz_declaration_list : fuzz_declaration_list fuzz_declaration",
 "fuzz_declaration_list : fuzz_declaration",
 "fuzz_declaration : ID '{' fuzzy_set_list '}' ';'",
@@ -351,6 +385,10 @@ final static String yyrule[] = {
 "parameter_list : parameter",
 "parameter : CONST_INT",
 "rules_part : RULES '<' rule_method '>' '{' rules_form rules_set '}'",
+"rules_part : RULES '<' rule_method '>' '{' rules_set '}'",
+"rules_part : RULES '<' rule_method '>' '{' '}'",
+"rules_part : RULES '<' rule_method '>'",
+"rules_part : RULES '{' rules_form rules_set '}'",
 "rule_method : MINMAX",
 "rule_method : MANDANI",
 "rules_form : '(' expression '=' result ')'",
@@ -363,6 +401,8 @@ final static String yyrule[] = {
 "result : ID",
 "result : result ',' ID",
 "defuzz_part : DEFUZZ '{' defuzz_declaration_list '}'",
+"defuzz_part : DEFUZZ '{' '}'",
+"defuzz_part : DEFUZZ",
 "defuzz_declaration_list : defuzz_declaration_list defuzz_declaration",
 "defuzz_declaration_list : defuzz_declaration",
 "defuzz_declaration : ID '=' defuzz_type ';'",
@@ -370,7 +410,7 @@ final static String yyrule[] = {
 "defuzz_type : CENTROID",
 };
 
-//#line 141 ".\Gramatica.y"
+//#line 157 ".\Gramatica.y"
 
 private LexicalAnalyzer lex;
 private EvalMethod method;
@@ -395,6 +435,7 @@ private int numberOfDefuzzifiers = 0;
 private boolean errorsFound = false; //Any error found -> Avoid generating code
 private boolean fuzzSetErrors = false; //Errors found inside a fuzz declaration -> Avoid creating faulty var
 private boolean ruleFormErrors = false; //Errors found on rule form sentence -> Avoid cheking list of rules
+private boolean rulesFormDefined = false; //Rules form is not defined -> Used for syntax errors 
 
 
 // General ----------------------------------------------
@@ -410,12 +451,12 @@ public Parser (String filePath) {
 }
 
 public void yyout(String s) {
-	System.out.println(LexicalAnalyzer.lineNumber + " DEBUG: " + s);
+	MainFrame.printOutput("Line: " + LexicalAnalyzer.lineNumber + " DEBUG: " + s);
 }
 	
 public void yyerror(String s) {
 	errorsFound = true;
-	System.out.println(LexicalAnalyzer.lineNumber + " ERROR: " + s);
+	MainFrame.printOutput("Line: " + LexicalAnalyzer.lineNumber + " ERROR: " + s);
 }
 
 public void debugMode(){
@@ -432,6 +473,10 @@ public int compile(){
 
 public void setLexeme(ParserVal lexeme){
 	this.yylval = lexeme;
+}
+
+public boolean hasErrors(){
+	return errorsFound;
 }
 //---------------------------------------------------------
 
@@ -496,7 +541,7 @@ private void changeFuzzySetTableParams(String varName){
 }
 
 
-private void addFuzzVariable(String varId){
+private void addVarFuzzDefinition(String varId){
 	if(!fuzzSetErrors){
 		if(Compiler.table.get(varId).varDeclared){
 			if(!Compiler.table.get(varId).fuzzDeclared){
@@ -508,6 +553,7 @@ private void addFuzzVariable(String varId){
 				else
 					IOVars.outVars.add(newVar);
 				Compiler.table.get(varId).fuzzDeclared = true;
+				Compiler.table.get(varId).varSize = fuzzySetList.size();
 				numberOfVars--;
 			}
 			else
@@ -527,6 +573,7 @@ private void checkMissingDeclarations(){
 
 }
 //---------------------------------------------------------
+
 // Rules --------------------------------------------------
 private void generateRulesCombinations() {
 	
@@ -553,7 +600,7 @@ private void generateRulesCombinations() {
 			for(int i=positions.length - 1; i>=0; i--) {
 				if(nextElem) {
 					positions[i]++;
-					if(positions[i] == IOVars.inVars.get(i).getSize()) 
+					if(positions[i] == Compiler.table.get(ruleOrder[i]).varSize)
 						positions[i] = 0;
 					else
 						nextElem = false;
@@ -591,7 +638,7 @@ private void checkRulesForm(){
 			}
 		}
 		else{
-			if (!inVar.fuzzDeclared) yyerror("Variable " + expressionList.get(i) + " was not declared");
+			if (!inVar.fuzzDeclared) yyerror("Variable " + expressionList.get(i) + " was not declared or fuzz defined");
 			else{
 				if (!inVar.varType.equals("IN")) yyerror("Variable " + expressionList.get(i) + " is an ouput variable");
 				if (!inVar.idRole.equals("variable")) yyerror("Variable " + expressionList.get(i) + " is not a variable");
@@ -604,7 +651,14 @@ private void checkRulesForm(){
 		yyerror("Missing input variables on left side");
 		ruleFormErrors = true;
 	}
+	else{
+		if(inVarsUsed == 1){
+			yyerror("Rules must have more than one input variable");
+			ruleFormErrors = true;
+		}
+	}
 	
+
 	int outVarsUsed = 0;
 	for(int i=0; i<resultList.size(); i++){
 		LexemeInfo outVar = Compiler.table.get(resultList.get(i));
@@ -620,7 +674,7 @@ private void checkRulesForm(){
 			}
 		}
 		else{
-			if (!outVar.fuzzDeclared) yyerror("Variable " + resultList.get(i) + " was not declared");
+			if (!outVar.fuzzDeclared) yyerror("Variable " + resultList.get(i) + " was not declared or fuzz defined");
 			else{				
 				if (!outVar.varType.equals("OUT")) yyerror("Variable " + resultList.get(i) + " is an input variable");
 				if (!outVar.idRole.equals("variable")) yyerror("Variable " + resultList.get(i) + " is not a variable");
@@ -634,21 +688,23 @@ private void checkRulesForm(){
 		yyerror("Missing output variables on right side");
 		ruleFormErrors = true;
 	}
+	
+	rulesFormDefined = true;
 }
 
 private void initMatrix(){
-	if(!errorsFound){ 
-		int rows = 0;
-		int columns = 0;
-		
-		rows = IOVars.inVars.get(0).getSize();
-		for(int i = 1; i < IOVars.inVars.size(); i++) {
-			rows = rows * IOVars.inVars.get(i).getSize();
-		}
-		columns = IOVars.inVars.size() + IOVars.outVars.size();
-		
-		rulesMatrix = new int[rows][columns];
+
+	int rows = 0;
+	int columns = 0;
+	
+	rows = IOVars.inVars.get(0).getSize();
+	for(int i = 1; i < IOVars.inVars.size(); i++) {
+		rows = rows * IOVars.inVars.get(i).getSize();
 	}
+	columns = IOVars.inVars.size() + IOVars.outVars.size();
+	
+	rulesMatrix = new int[rows][columns];
+	
 }
 
 private void checkRule(){
@@ -725,7 +781,7 @@ private void addDefuzzifier(String var){
 		}
 		else{
 			if (!outVar.fuzzDeclared) 
-				yyerror("Variable " + var + " was not declared");
+				yyerror("Variable " + var + " was not declared or fuzz defined");
 			else{				
 				if (!outVar.varType.equals("OUT")) 
 					yyerror("Variable " + var + " is an input variable");
@@ -746,26 +802,13 @@ private void checkMissingDefuzz(){
 
 //---------------------------------------------------------
 public void generateCode(){
-	// for(int i=0; i<IOVars.inVars.size(); i++)
-		// yyout(IOVars.inVars.get(i).toString());
-	
-	// for(int i=0; i<IOVars.outVars.size(); i++)
-		// yyout(IOVars.outVars.get(i).toString());
-	
-	if(!errorsFound)
-		for(int i=0; i<rulesMatrix.length; i++) {
-			for(int j=0; j<rulesMatrix[i].length; j++) {
-				System.out.print(rulesMatrix[i][j] + " | ");
-			}
-			System.out.println("");
-		}
 	
 	if(!errorsFound){
 		
 		String[] stringArray = filePath.split("\\.");
 		stringArray[stringArray.length - 2] = stringArray[stringArray.length - 2] + "_output";
 		String outpath = String.join(".", stringArray);
-		yyout(outpath);
+		MainFrame.printOutput("Output filepath: " + outpath);
 		
 		CodeGenerator codeGenerator = new CodeGenerator(method, defuzz);
 		codeGenerator.generate(outpath);
@@ -773,7 +816,7 @@ public void generateCode(){
 	
 
 }
-//#line 705 "Parser.java"
+//#line 748 "Parser.java"
 //###############################################################
 // method: yylexdebug : check lexer state
 //###############################################################
@@ -928,185 +971,245 @@ boolean doaction;
       {
 //########## USER-SUPPLIED ACTIONS ##########
 case 1:
-//#line 33 ".\Gramatica.y"
+//#line 34 ".\Gramatica.y"
 { generateCode(); }
 break;
 case 2:
-//#line 36 ".\Gramatica.y"
-{yyout("-- Controlador");}
+//#line 37 ".\Gramatica.y"
+{yyout("-- Controller");}
 break;
 case 3:
-//#line 37 ".\Gramatica.y"
-{yyout("-- Controlador");}
+//#line 38 ".\Gramatica.y"
+{yyout("-- Controller");}
 break;
 case 4:
-//#line 40 ".\Gramatica.y"
+//#line 41 ".\Gramatica.y"
 { IOVars.converterSize = Integer.parseInt(val_peek(5).sval); }
 break;
 case 5:
-//#line 43 ".\Gramatica.y"
-{}
+//#line 42 ".\Gramatica.y"
+{ yyerror("Missing converter size for this controller"); }
 break;
 case 6:
-//#line 48 ".\Gramatica.y"
-{ yyout("-- Declare"); }
+//#line 45 ".\Gramatica.y"
+{}
 break;
 case 7:
-//#line 50 ".\Gramatica.y"
-{}
+//#line 46 ".\Gramatica.y"
+{yyerror("Missing declaration segment");}
 break;
 case 8:
-//#line 51 ".\Gramatica.y"
-{}
+//#line 47 ".\Gramatica.y"
+{yyerror("Missing fuzz segment");}
 break;
 case 9:
-//#line 54 ".\Gramatica.y"
-{addDeclaration(val_peek(1).sval, val_peek(3).sval);}
+//#line 48 ".\Gramatica.y"
+{yyerror("Missing rules segment");}
 break;
 case 10:
-//#line 55 ".\Gramatica.y"
-{ yyerror("Missing semicolon"); }
+//#line 49 ".\Gramatica.y"
+{yyerror("Missing defuzz segment");}
+break;
+case 11:
+//#line 54 ".\Gramatica.y"
+{ yyout("-- Declare"); }
 break;
 case 12:
+//#line 55 ".\Gramatica.y"
+{yyerror("Missing declaration body");}
+break;
+case 13:
+//#line 56 ".\Gramatica.y"
+{yyerror("Missing declaration body");}
+break;
+case 14:
 //#line 58 ".\Gramatica.y"
 {}
 break;
-case 13:
-//#line 63 ".\Gramatica.y"
-{ checkMissingDeclarations(); generateRulesCombinations(); yyout("-- Fuzzificador"); }
-break;
-case 14:
-//#line 66 ".\Gramatica.y"
+case 15:
+//#line 59 ".\Gramatica.y"
 {}
 break;
 case 16:
-//#line 70 ".\Gramatica.y"
-{ addFuzzVariable(val_peek(4).sval); }
+//#line 62 ".\Gramatica.y"
+{addDeclaration(val_peek(1).sval, val_peek(3).sval);}
 break;
 case 17:
-//#line 71 ".\Gramatica.y"
+//#line 63 ".\Gramatica.y"
 { yyerror("Missing semicolon"); }
 break;
-case 18:
-//#line 74 ".\Gramatica.y"
-{}
-break;
 case 19:
-//#line 75 ".\Gramatica.y"
+//#line 66 ".\Gramatica.y"
 {}
 break;
 case 20:
-//#line 78 ".\Gramatica.y"
-{ addFuzzySet(val_peek(6).sval); }
+//#line 71 ".\Gramatica.y"
+{ checkMissingDeclarations(); yyout("-- Fuzz"); }
 break;
 case 21:
-//#line 79 ".\Gramatica.y"
-{ yyerror("Missing semicolon"); }
+//#line 72 ".\Gramatica.y"
+{yyerror("Missing fuzz body");}
 break;
 case 22:
-//#line 82 ".\Gramatica.y"
-{ currentFuzzSet = new TriangularFS(); }
+//#line 73 ".\Gramatica.y"
+{yyerror("Missing fuzz body");}
 break;
 case 23:
-//#line 83 ".\Gramatica.y"
-{ currentFuzzSet = new SingletonFS(); }
-break;
-case 24:
-//#line 84 ".\Gramatica.y"
-{ currentFuzzSet = new SShapeFS(); }
+//#line 76 ".\Gramatica.y"
+{}
 break;
 case 25:
-//#line 85 ".\Gramatica.y"
-{ currentFuzzSet = new ZShapeFS(); }
+//#line 80 ".\Gramatica.y"
+{ addVarFuzzDefinition(val_peek(4).sval); }
 break;
 case 26:
-//#line 87 ".\Gramatica.y"
-{ addFuzzySetParameter(val_peek(0).sval); }
+//#line 81 ".\Gramatica.y"
+{ yyerror("Missing semicolon"); }
 break;
 case 27:
-//#line 88 ".\Gramatica.y"
-{ fuzzySetParameters.clear();
-							 addFuzzySetParameter(val_peek(0).sval); }
+//#line 84 ".\Gramatica.y"
+{}
 break;
 case 28:
-//#line 92 ".\Gramatica.y"
+//#line 85 ".\Gramatica.y"
 {}
 break;
 case 29:
-//#line 97 ".\Gramatica.y"
-{ checkMissingRules();
-																	 if(!errorsFound) { method.setMatrix(this.rulesMatrix); }; 
-																	 yyout("-- Motor de reglas");}
+//#line 88 ".\Gramatica.y"
+{ addFuzzySet(val_peek(6).sval); }
 break;
 case 30:
-//#line 102 ".\Gramatica.y"
-{method = new MinMaxMethod();}
+//#line 89 ".\Gramatica.y"
+{ yyerror("Missing semicolon"); }
 break;
 case 31:
-//#line 103 ".\Gramatica.y"
-{method = new MinMaxMethod();}
+//#line 92 ".\Gramatica.y"
+{ currentFuzzSet = new TriangularFS(); }
 break;
 case 32:
-//#line 106 ".\Gramatica.y"
-{ checkRulesForm(); initMatrix();}
+//#line 93 ".\Gramatica.y"
+{ currentFuzzSet = new SingletonFS(); }
 break;
 case 33:
-//#line 109 ".\Gramatica.y"
-{}
+//#line 94 ".\Gramatica.y"
+{ currentFuzzSet = new SShapeFS(); }
 break;
 case 34:
-//#line 110 ".\Gramatica.y"
-{}
+//#line 95 ".\Gramatica.y"
+{ currentFuzzSet = new ZShapeFS(); }
 break;
 case 35:
-//#line 113 ".\Gramatica.y"
-{ if(!ruleFormErrors){ checkRule(); } }
+//#line 97 ".\Gramatica.y"
+{ addFuzzySetParameter(val_peek(0).sval); }
 break;
 case 36:
-//#line 114 ".\Gramatica.y"
-{ yyerror("Missing semicolon"); }
+//#line 98 ".\Gramatica.y"
+{ fuzzySetParameters.clear();
+							 addFuzzySetParameter(val_peek(0).sval); }
 break;
 case 37:
-//#line 116 ".\Gramatica.y"
-{ expressionList.clear(); addExpression(val_peek(0).sval);}
+//#line 102 ".\Gramatica.y"
+{}
 break;
 case 38:
-//#line 117 ".\Gramatica.y"
-{addExpression(val_peek(0).sval);}
+//#line 107 ".\Gramatica.y"
+{ checkMissingRules();
+																	 if(!errorsFound) { method.setMatrix(this.rulesMatrix); }; 
+																	 yyout("-- Rules");}
 break;
 case 39:
-//#line 120 ".\Gramatica.y"
-{resultList.clear(); addResult(val_peek(0).sval);}
+//#line 110 ".\Gramatica.y"
+{ yyerror("Missing rules form"); }
 break;
 case 40:
-//#line 121 ".\Gramatica.y"
-{addResult(val_peek(0).sval);}
+//#line 111 ".\Gramatica.y"
+{ yyerror("Missing rules body"); }
 break;
 case 41:
-//#line 126 ".\Gramatica.y"
-{checkMissingDefuzz(); yyout("-- Defuzzificador");}
+//#line 112 ".\Gramatica.y"
+{ yyerror("Missing rules body"); }
 break;
 case 42:
-//#line 129 ".\Gramatica.y"
-{}
+//#line 113 ".\Gramatica.y"
+{ yyerror("Missing rules evaluation method"); }
 break;
 case 43:
-//#line 130 ".\Gramatica.y"
-{}
+//#line 116 ".\Gramatica.y"
+{method = new MinMaxMethod();}
 break;
 case 44:
-//#line 133 ".\Gramatica.y"
-{addDefuzzifier(val_peek(3).sval);}
+//#line 117 ".\Gramatica.y"
+{method = new MinMaxMethod();}
 break;
 case 45:
-//#line 134 ".\Gramatica.y"
-{ yyerror("Missing semicolon"); }
+//#line 120 ".\Gramatica.y"
+{ checkRulesForm(); if(!errorsFound) { generateRulesCombinations(); initMatrix(); }}
 break;
 case 46:
-//#line 137 ".\Gramatica.y"
+//#line 123 ".\Gramatica.y"
+{}
+break;
+case 47:
+//#line 124 ".\Gramatica.y"
+{}
+break;
+case 48:
+//#line 127 ".\Gramatica.y"
+{ if(!ruleFormErrors && rulesFormDefined){ checkRule(); } }
+break;
+case 49:
+//#line 128 ".\Gramatica.y"
+{ yyerror("Missing semicolon"); }
+break;
+case 50:
+//#line 130 ".\Gramatica.y"
+{ expressionList.clear(); addExpression(val_peek(0).sval);}
+break;
+case 51:
+//#line 131 ".\Gramatica.y"
+{addExpression(val_peek(0).sval);}
+break;
+case 52:
+//#line 134 ".\Gramatica.y"
+{resultList.clear(); addResult(val_peek(0).sval);}
+break;
+case 53:
+//#line 135 ".\Gramatica.y"
+{addResult(val_peek(0).sval);}
+break;
+case 54:
+//#line 140 ".\Gramatica.y"
+{checkMissingDefuzz(); yyout("-- Defuzz");}
+break;
+case 55:
+//#line 141 ".\Gramatica.y"
+{ yyerror("Missing defuzz body"); }
+break;
+case 56:
+//#line 142 ".\Gramatica.y"
+{ yyerror("Missing defuzz body"); }
+break;
+case 57:
+//#line 145 ".\Gramatica.y"
+{}
+break;
+case 58:
+//#line 146 ".\Gramatica.y"
+{}
+break;
+case 59:
+//#line 149 ".\Gramatica.y"
+{addDefuzzifier(val_peek(3).sval);}
+break;
+case 60:
+//#line 150 ".\Gramatica.y"
+{ yyerror("Missing semicolon"); }
+break;
+case 61:
+//#line 153 ".\Gramatica.y"
 {currentDefuzz = new CentroidDefuzz();}
 break;
-//#line 1033 "Parser.java"
+//#line 1136 "Parser.java"
 //########## END OF USER-SUPPLIED ACTIONS ##########
     }//switch
     //#### Now let's reduce... ####

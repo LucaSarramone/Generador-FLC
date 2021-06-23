@@ -10,6 +10,7 @@ import java.util.HashSet;
 import lexical_analysis.semantic_actions.*;
 import parser.*;
 import compiler.Compiler;
+import gui.MainFrame;
 
 public class LexicalAnalyzer {
 	
@@ -132,7 +133,7 @@ public class LexicalAnalyzer {
 						return 0;
 					else
 						if(state == -2)
-							System.out.println("Lexical error in line " +  lineNumber);
+							MainFrame.printOutput("Line: " + lineNumber + " ERROR: Unknown symbol");
 			}
 			else
 				return 0;

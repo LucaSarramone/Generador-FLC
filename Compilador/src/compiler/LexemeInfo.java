@@ -10,6 +10,7 @@ public class LexemeInfo {
 	public String fuzzType = "-"; // Algorithm used in fuzzification
 	
 	public int fuzzSetPosition = 0; //Fuzzy set index in variable vector
+	public int varSize = 0;
 	
 	public boolean setDeclared = false; // Set true when fuzzy_set declaration found
 	public boolean varDeclared = false; // Set true when var declaration found
@@ -23,7 +24,7 @@ public class LexemeInfo {
 	}
 	
 	public String toString() {
-		return "<" + tokenType + ", " + idRole + ", " + varType + ", " + fuzzType + ", " + fuzzSetPosition + ", " + fuzzDeclared + ">";    
+		return "<" + tokenType + ", " + idRole + ", " + varType + ", " + fuzzType + ", " + fuzzSetPosition + ", " + varSize + ">";    
 	}
 	
 }

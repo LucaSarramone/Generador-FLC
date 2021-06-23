@@ -14,7 +14,15 @@ public class MinMaxMethod extends EvalMethod{
 	public void compileEvalMethod() throws IOException{
 		
 		boolean isFirst = true;
-		Writer.file.write("void rulesEvaluation(){ \n\n");
+		Writer.file.write("void rulesEvaluation(){ \n");
+		
+		Writer.file.write(" #pragma HLS PIPELINE \n");
+		for(int i=0; i<IOVars.inVars.size(); i++)
+			Writer.file.write(" #pragma #pragma HLS ARRAY_PARTITION variable=" + IOVars.inVars.get(i).getName() + "Fuzz complete dim=1 \n" );
+		for(int i=0; i<IOVars.outVars.size(); i++)
+			Writer.file.write(" #pragma #pragma HLS ARRAY_PARTITION variable=" + IOVars.outVars.get(i).getName() + "MembershipValues complete dim=1 \n" );
+		
+		Writer.file.write("\n");
 		Writer.file.write("\tfixed_int aux = 0; \n");
 		for(int j = IOVars.inVars.size(); j < columns; j++ ) {
 			for(int conjunto = 0; conjunto < IOVars.outVars.get(columns - j - 1).getSize(); conjunto++) {
@@ -29,12 +37,13 @@ public class MinMaxMethod extends EvalMethod{
 			}
 		}
 		Writer.file.write("} \n");
+		Writer.file.write("\n");
 	}
 	
 	private void compileRow(boolean isFirst, int row, int varNumber, int setNumber) throws IOException {
 		Writer.file.write("\t");
 		if(isFirst) { 
-			Writer.file.write("membershipValues" + IOVars.outVars.get(varNumber).getName() + 
+			Writer.file.write(IOVars.outVars.get(varNumber).getName() + "MembershipValues" + 
 									"[" + setNumber + "] = min(");
 			for(int inVar=0; inVar<IOVars.inVars.size(); inVar++) {
 				Writer.file.write(IOVars.inVars.get(inVar).getName() + "Fuzz[" +
@@ -53,9 +62,9 @@ public class MinMaxMethod extends EvalMethod{
 					Writer.file.write(", ");
 			}
 			Writer.file.write("); \n");
-			Writer.file.write("\tif (membershipValues" + IOVars.outVars.get(varNumber).getName() + 
+			Writer.file.write("\tif (" + IOVars.outVars.get(varNumber).getName() + "MembershipValues" + 
 									"[" + setNumber + "] < aux \n");
-			Writer.file.write("\t\t membershipValues" + IOVars.outVars.get(varNumber).getName() + 
+			Writer.file.write("\t\t " + IOVars.outVars.get(varNumber).getName() + "MembershipValues" + 
 									"[" + setNumber + "] = aux; \n");
 			
 		}

@@ -15,7 +15,14 @@ public class CentroidDefuzz extends Defuzzifier{
 		
 		String varName = IOVars.outVars.get(varNumber).getName();
 
-		Writer.file.write("\nfixed_int defuzzifier" + varName + "(){ \n\n");
+		Writer.file.write(" #pragma HLS PIPELINE \n");
+		for(int i=0; i<IOVars.outVars.size(); i++) {
+			Writer.file.write(" #pragma #pragma HLS ARRAY_PARTITION variable=" + IOVars.outVars.get(i).getName() + "MembershipValues complete dim=1 \n" );
+			Writer.file.write(" #pragma #pragma HLS ARRAY_PARTITION variable=outputValues" + IOVars.outVars.get(i).getName() + " complete dim=1 \n" );
+		}
+		
+		Writer.file.write("\n");
+		
 		Writer.file.write("\tfixed_aux_" + varName + " numerator = 0; \n ");
 		Writer.file.write("\tfixed_aux_" + varName + " denominator = 0; \n ");
 			
