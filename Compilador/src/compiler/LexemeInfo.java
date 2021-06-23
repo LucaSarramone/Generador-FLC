@@ -17,6 +17,7 @@ public class LexemeInfo {
 	public boolean fuzzDeclared = false; // Set true when var's fuzzy sets are declared
 	public boolean useInRule = false; // Set true when var is used in generic rule
 	public boolean defuzzDeclared = false; //Set true when output variable defuzzifier is declared
+	public boolean isSingleton =  false; //Set true if all var's fs are singleton
 	
 	public LexemeInfo(int tokenId, String tokenType) {
 		this.tokenNumber = tokenId;

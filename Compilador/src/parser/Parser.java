@@ -556,6 +556,7 @@ private void addVarFuzzDefinition(String varId){
 					IOVars.outVars.add(newVar);
 				Compiler.table.get(varId).fuzzDeclared = true;
 				Compiler.table.get(varId).varSize = fuzzySetList.size();
+				Compiler.table.get(varId).isSingleton = newVar.isSingleton(); 
 				numberOfVars--;
 			}
 			else
@@ -774,9 +775,13 @@ private void addDefuzzifier(String var){
 		LexemeInfo outVar = Compiler.table.get(var);
 		if(outVar.fuzzDeclared && outVar.varType.equals("OUT") &&  outVar.idRole.equals("variable")){
 			if(!outVar.defuzzDeclared){
-				defuzz.put(var, currentDefuzz);
-				outVar.defuzzDeclared = true;
-				numberOfDefuzzifiers++;
+				if(currentDefuzz.getType().equals("Centroid") && Compiler.table.get(var).isSingleton){
+					defuzz.put(var, currentDefuzz);
+					outVar.defuzzDeclared = true;
+					numberOfDefuzzifiers++;
+				}
+				else
+					yyerror("For centroid defuzz all fuzzy set from " + var + " must be singleton" );
 			}
 			else
 				yyerror("Variable " + var + " already declared" );
@@ -816,7 +821,7 @@ public void generateCode(){
 		codeGenerator.generate(outpath);
 	}
 }
-//#line 748 "Parser.java"
+//#line 753 "Parser.java"
 //###############################################################
 // method: yylexdebug : check lexer state
 //###############################################################
@@ -1213,7 +1218,7 @@ case 62:
 //#line 154 ".\Gramatica.y"
 {currentDefuzz = new CentroidDefuzz();}
 break;
-//#line 1140 "Parser.java"
+//#line 1145 "Parser.java"
 //########## END OF USER-SUPPLIED ACTIONS ##########
     }//switch
     //#### Now let's reduce... ####

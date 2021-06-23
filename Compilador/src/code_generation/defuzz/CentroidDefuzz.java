@@ -7,7 +7,9 @@ import code_generation.writer.Writer;
 
 public class CentroidDefuzz extends Defuzzifier{
 	
-	public CentroidDefuzz() { };
+	public CentroidDefuzz() { super("Centroid"); };
+	
+	
 	
 	public void compileDefuzz(int varNumber) throws IOException {
 		

@@ -6,7 +6,15 @@ import code_generation.variables.IOVars;
 
 public abstract class Defuzzifier {
 	
-	public Defuzzifier() {};
+	String type;
+	
+	public Defuzzifier(String t) {
+		this.type = t;
+	};
+	
+	public String getType() {
+		return this.type;
+	}
 	
 	public void compileOutputVariablesBuffers() throws IOException {
 		for(int i=0; i<IOVars.outVars.size(); i++) {
