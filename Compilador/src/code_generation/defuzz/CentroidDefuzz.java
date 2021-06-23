@@ -16,6 +16,8 @@ public class CentroidDefuzz extends Defuzzifier{
 		IOVars.outVars.get(varNumber).compileOutputSetsBuffer();
 		
 		String varName = IOVars.outVars.get(varNumber).getName();
+		
+		Writer.file.write("fixed_int defuzzifier" + varName + "() {\n");
 
 		Writer.file.write(" #pragma HLS PIPELINE \n");
 		for(int i=0; i<IOVars.outVars.size(); i++) {
@@ -37,5 +39,14 @@ public class CentroidDefuzz extends Defuzzifier{
 		Writer.file.write("\treturn numerator/denominator; \n");
 		Writer.file.write("}\n");
 			
+	}
+
+
+
+	@Override
+	public void compileHeader(int varNumber) throws IOException{
+		String varName = IOVars.outVars.get(varNumber).getName();
+		
+		Writer.file.write("fixed_int defuzzifier" + varName + "();\n");
 	}
 }

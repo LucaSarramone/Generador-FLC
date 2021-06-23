@@ -23,6 +23,8 @@ public abstract class Defuzzifier {
 	}
 	
 	public abstract void compileDefuzz(int varNumber) throws IOException;
+
+	public abstract void compileHeader(int i) throws IOException;
 	
 	
 }

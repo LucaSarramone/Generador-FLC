@@ -48,7 +48,7 @@ public class MinMaxMethod extends EvalMethod{
 			for(int inVar=0; inVar<IOVars.inVars.size(); inVar++) {
 				Writer.file.write(IOVars.inVars.get(inVar).getName() + "Fuzz[" +
 										rulesMatrix[row][inVar] + "]");
-				if(inVar != IOVars.inVars.size())
+				if(inVar != IOVars.inVars.size()-1)
 					Writer.file.write(",");
 			}
 			Writer.file.write("); \n");
@@ -63,12 +63,17 @@ public class MinMaxMethod extends EvalMethod{
 			}
 			Writer.file.write("); \n");
 			Writer.file.write("\tif (" + IOVars.outVars.get(varNumber).getName() + "MembershipValues" + 
-									"[" + setNumber + "] < aux \n");
+									"[" + setNumber + "] < aux) \n");
 			Writer.file.write("\t\t " + IOVars.outVars.get(varNumber).getName() + "MembershipValues" + 
 									"[" + setNumber + "] = aux; \n");
 			
 		}
 			
+	}
+
+	@Override
+	public void compileHeader() throws IOException {
+		Writer.file.write("void rulesEvaluation(); \n");
 	}
 
 }

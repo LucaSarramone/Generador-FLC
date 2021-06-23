@@ -1,15 +1,14 @@
 %{
 package parser;
 
-
-import lexical_analysis.LexicalAnalyzer;
-
+import java.io.File;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Vector;
 import java.util.stream.Collectors;
 
+import lexical_analysis.LexicalAnalyzer;
 import code_generation.CodeGenerator;
 import code_generation.defuzz.CentroidDefuzz;
 import code_generation.defuzz.Defuzzifier;
@@ -38,8 +37,9 @@ fuzzy_controller_set : fuzzy_controller {yyout("-- Controller");}
 					| fuzzy_controller_set fuzzy_controller {yyout("-- Controller");}
 ;
 
-fuzzy_controller : ID '<' CONST_INT '>'':' BEGIN fuzzy_controller_body END { IOVars.converterSize = Integer.parseInt($3.sval); }
-				| ID ':' BEGIN fuzzy_controller_body END { yyerror("Missing converter size for this controller"); }
+fuzzy_controller : ID '<' CONST_INT '>'':' BEGIN fuzzy_controller_body END ';' { IOVars.converterSize = Integer.parseInt($3.sval); }
+				 | ID ':' BEGIN fuzzy_controller_body END ';' { yyerror("Missing converter size for this controller"); } //SYNTAX ERROR RULE
+				 | ID '<' CONST_INT '>'':' BEGIN fuzzy_controller_body END { yyerror("Missing semicolon"); } //SYNTAX ERROR RULE
 ;
 
 fuzzy_controller_body : var_declarations fuzz_part rules_part defuzz_part {}
@@ -553,13 +553,18 @@ private void checkMissingDefuzz(){
 public void generateCode(){
 	
 	if(!errorsFound){
+		String fileName = new File(filePath).getName().split("\\.")[0].replace(" ", "_");
+		String outputDirectory = new File(filePath).getParentFile().getAbsolutePath();
 		
-		String[] stringArray = filePath.split("\\.");
-		stringArray[stringArray.length - 2] = stringArray[stringArray.length - 2] + "_output";
-		String outpath = String.join(".", stringArray);
-		MainFrame.printOutput("Output filepath: " + outpath);
+		String cpppath = outputDirectory + "\\" +  fileName + "_out.cpp";
+		String headerpath = outputDirectory + "\\" +  fileName + "_out.h";
+		String testpath = outputDirectory + "\\" +  fileName + "_outTB.cpp";
+
+		MainFrame.printOutput("Output directory: " + outputDirectory);
 		
 		CodeGenerator codeGenerator = new CodeGenerator(method, defuzz);
-		codeGenerator.generate(outpath);
+		codeGenerator.generateCpp(cpppath);
+		codeGenerator.generateHeader(headerpath);
+		codeGenerator.generateTestBench(testpath, fileName+".h");
 	}
 }

@@ -58,5 +58,7 @@ public abstract class EvalMethod {
 	}
 	
 	public abstract void compileEvalMethod() throws IOException;
+	
+	public abstract void compileHeader() throws IOException;
 
 }

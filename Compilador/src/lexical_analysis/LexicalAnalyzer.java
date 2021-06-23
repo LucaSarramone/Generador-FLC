@@ -42,7 +42,7 @@ public class LexicalAnalyzer {
 		try {
 			reader = new BufferedInputStream(new FileInputStream(programPath));
 		} catch (FileNotFoundException e) {
-			System.out.println("ERROR. Input file error.");
+			MainFrame.printOutput("ERROR. Input file error.");
 		}
 		
 		actionsMatrix = initActionsMatrix();
@@ -139,7 +139,7 @@ public class LexicalAnalyzer {
 				return 0;
 			
 		} catch (IOException e) {
-			System.out.println("ERROR. While reading input file.");
+			MainFrame.printOutput("ERROR. While reading input file.");
 		}
 		return 0;
 	}

@@ -8,6 +8,7 @@ import code_generation.evaluation_method.EvalMethod;
 import code_generation.fuzz.Fuzzifier;
 import code_generation.variables.IOVars;
 import code_generation.writer.Writer;
+import gui.MainFrame;
 
 public class CodeGenerator {
 	
@@ -21,7 +22,7 @@ public class CodeGenerator {
 		this.defuzzifiers = defuzz;
 	}
 	
-	public void generate(String outputPath) {
+	public void generateCpp(String outputPath) {
 		 try {
 			 Writer.openFile(outputPath);
 			 Writer.file.write( "#include <iostream> \n" + 
@@ -84,14 +85,79 @@ public class CodeGenerator {
 			 
 		 }
 		 catch(IOException e) {
-			 e.printStackTrace();
+			 MainFrame.printOutput("ERROR. While generating cpp file");
 		 }
-		 
-		//motorDeReglas.printMatriz();
-		System.out.println("Listo!");
-		
-		
-
 	}
+	
+	public void generateHeader(String path) {
+		
+		 try {
+			Writer.openFile(path);
+			 Writer.file.write( "#include <iostream> \n" + 
+	 				 "#include <ap_int.h> \n \n" );
+
+			Writer.file.write( "typedef ap_uint<" + IOVars.converterSize + "> fixed_int; \n" );
+			
+			for(int i=0; i<IOVars.outVars.size(); i++) {
+			 Writer.file.write( "typedef ap_uint<" + IOVars.getAuxTypeSize(i) + 
+					 				 "> fixed_aux_"+ IOVars.outVars.get(i).getName() +"; \n" );
+			}
+			
+			Writer.file.write( "typedef ap_uint<" + IOVars.getOutTypeSize() + "> fixed_out; \n");
+			
+			Writer.file.write( "using namespace std; \n \n" );
+			
+			fuzzifier.compileHeader();
+			evalMethod.compileHeader();
+			 for(int i=0; i<IOVars.outVars.size(); i++) {
+				 defuzzifiers.get(IOVars.outVars.get(i).getName()).compileHeader(i);
+			 }
+			
+			 Writer.file.write("fixed_out fuzzyController(fixed_int " + IOVars.inVars.get(0).getName());
+			 for(int i=1; i<IOVars.inVars.size(); i++) {
+				 Writer.file.write(", fixed_int " + IOVars.inVars.get(i).getName());
+			 }
+			 Writer.file.write("); \n");
+			 Writer.closeFile();
+		} catch (IOException e) {
+			 MainFrame.printOutput("ERROR. While generating header file");
+		}
+	}
+	
+	public void generateTestBench(String path, String headerFile) {
+		try {
+			Writer.openFile(path);
+			Writer.file.write(
+					"#include <iostream> \n" + 
+					"#include \"" + headerFile + "\" \n" + 
+					"#include <ap_int.h> \n" + 
+					"\n" + 
+					"typedef ap_uint<8> fixed_int;\n" + 
+					"typedef ap_uint<18> fixed_aux;\n" + 
+					"\n" + 
+					"\n" + 
+					"using namespace std;\n" + 
+					"\n" + 
+					"int main(int argc, char **argv){ \n\n");
+			
+			for(int i=0; i<IOVars.inVars.size(); i++) {
+				Writer.file.write( "\tfixed_int " + IOVars.inVars.get(i).getName() + " = " + (int)(IOVars.getConverterRange()/2) + "; \n"); 
+			}
+			
+			Writer.file.write("\n");
+			
+			Writer.file.write("\tcout <<  fuzzyController(" + IOVars.inVars.get(0).getName());
+			for(int i=1; i<IOVars.inVars.size(); i++) {
+				Writer.file.write( ", " + IOVars.inVars.get(i).getName()); 
+			}
+			Writer.file.write("); \n\n");
+			
+			Writer.file.write("\treturn 0;\n}");
+			Writer.closeFile();
+		} catch (IOException e) {
+			 MainFrame.printOutput("ERROR. While generating header file");
+		}
+	}
+	
 
 }

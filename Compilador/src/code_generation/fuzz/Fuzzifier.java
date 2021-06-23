@@ -43,4 +43,12 @@ public class Fuzzifier {
 		Writer.file.write("} \n \n");
 	}
 	
+	public void compileHeader()  throws IOException{
+		Writer.file.write("void fuzzifier (fixed_int " +  IOVars.inVars.get(0).getName());
+		for(int i=1; i<IOVars.inVars.size(); i++) {
+			Writer.file.write(", fixed_int " + IOVars.inVars.get(i).getName());
+		}
+		Writer.file.write("); \n");
+	}
+	
 }
