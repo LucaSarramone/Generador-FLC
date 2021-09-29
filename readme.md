@@ -1,4 +1,4 @@
-# Compilador
+# Generador FLC
 
 Herramienta de generación de FLC en alto nivel. En base a una descripción abstracta de los componentes de un controlador difuso, se genera un código en C++, optimizado 
 usando las directivas de Vivado HLS. Usando dicha herarmienta de Xilinx es posible generar códigos en lenguaje VHDL o Verilog, ejecutables en cualquier placa compatible.
