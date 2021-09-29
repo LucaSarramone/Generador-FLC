@@ -54,6 +54,7 @@ fuzzy_controller_body : var_declarations fuzz_part rules_part defuzz_part {}
 var_declarations : DECLARE '{' var_list '}' { yyout("-- Declare"); }
 				 | DECLARE '{' '}' {yyerror("Missing declaration body");} //SYNTAX ERROR RULE
 				 | DECLARE {yyerror("Missing declaration body");} //SYNTAX ERROR RULE
+;
 
 var_list : var_list var {}
 		 | var {}
@@ -127,6 +128,7 @@ rules_set : rules_set rule {}
 
 rule : expression '=' result ';'  { if(!ruleFormErrors && rulesFormDefined){ checkRule(); } }
 	 | expression '=' result  { yyerror("Missing semicolon"); } //SYNTAX ERROR RULE
+;
 
 expression : ID { expressionList.clear(); addExpression($1.sval);}
 		   | expression '*' ID {addExpression($3.sval);}
@@ -201,6 +203,10 @@ public void yyout(String s) {
 public void yyerror(String s) {
 	errorsFound = true;
 	MainFrame.printOutput("Line: " + LexicalAnalyzer.lineNumber + " ERROR: " + s);
+}
+
+public void yywarning(String s) {
+	MainFrame.printOutput("Line: " + LexicalAnalyzer.lineNumber + " WARNING: " + s);
 }
 
 public void debugMode(){
@@ -476,9 +482,9 @@ private void checkRule(){
 
 	if(!errorsFound && !rulesCombinations.remove(combination)){
 		if(inVarsUsed < IOVars.inVars.size() )
-			yyerror("Parameters missing on left side");
+			yyerror("Parameters missing on left side. Try using all possible combination with the missing variables.");
 		else
-			yyerror("Rule: "+ combination + " already declared");
+			yywarning("Rule: "+ combination + " already declared");
 	}
 	
 	int outVarsUsed = 0;
@@ -504,7 +510,7 @@ private void checkRule(){
 
 private void checkMissingRules(){
 	if(rulesCombinations.size() > 0 && !errorsFound)
-		yyerror("Missing rules declarations"); //Se puede desambiguar;
+		yywarning("Some rules combinations are missing");
 }
 
 //---------------------------------------------------------
@@ -565,6 +571,6 @@ public void generateCode(){
 		CodeGenerator codeGenerator = new CodeGenerator(method, defuzz);
 		codeGenerator.generateCpp(cpppath);
 		codeGenerator.generateHeader(headerpath);
-		codeGenerator.generateTestBench(testpath, fileName+".h");
+		codeGenerator.generateTestBench(testpath, fileName+"_out.h");
 	}
 }

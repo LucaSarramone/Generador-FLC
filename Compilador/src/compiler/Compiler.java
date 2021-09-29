@@ -36,7 +36,7 @@ public class Compiler {
 		IOVars.init();
 		Parser parser = new Parser(path);
 		int status = parser.compile();
-		if(status == 0 || !parser.hasErrors())
+		if(status == 0 && !parser.hasErrors())
 			MainFrame.printOutput("Finish!");
 		else
 			MainFrame.printOutput("Process finished with errors. Aborting.");

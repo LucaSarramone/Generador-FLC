@@ -5,14 +5,11 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.JLabel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JTextArea;
 import java.awt.Button;
-import java.awt.Color;
-import javax.swing.border.LineBorder;
 import javax.swing.JScrollPane;
 
 
@@ -21,6 +18,10 @@ import javax.swing.JTextField;
 
 public class MainFrame extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private static JTextArea outputText;
 	private static String text = "";

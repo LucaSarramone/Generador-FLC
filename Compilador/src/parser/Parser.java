@@ -469,6 +469,10 @@ public void yyerror(String s) {
 	MainFrame.printOutput("Line: " + LexicalAnalyzer.lineNumber + " ERROR: " + s);
 }
 
+public void yywarning(String s) {
+	MainFrame.printOutput("Line: " + LexicalAnalyzer.lineNumber + " WARNING: " + s);
+}
+
 public void debugMode(){
 	yydebug = true;
 }
@@ -742,9 +746,9 @@ private void checkRule(){
 
 	if(!errorsFound && !rulesCombinations.remove(combination)){
 		if(inVarsUsed < IOVars.inVars.size() )
-			yyerror("Parameters missing on left side");
+			yyerror("Parameters missing on left side. Try using all possible combination with the missing variables.");
 		else
-			yyerror("Rule: "+ combination + " already declared");
+			yywarning("Rule: "+ combination + " already declared");
 	}
 	
 	int outVarsUsed = 0;
@@ -770,7 +774,7 @@ private void checkRule(){
 
 private void checkMissingRules(){
 	if(rulesCombinations.size() > 0 && !errorsFound)
-		yyerror("Missing rules declarations"); //Se puede desambiguar;
+		yywarning("Some rules combinations are missing");
 }
 
 //---------------------------------------------------------
@@ -825,17 +829,16 @@ public void generateCode(){
 		String cpppath = outputDirectory + "\\" +  fileName + "_out.cpp";
 		String headerpath = outputDirectory + "\\" +  fileName + "_out.h";
 		String testpath = outputDirectory + "\\" +  fileName + "_outTB.cpp";
-		System.out.println(cpppath);
 
 		MainFrame.printOutput("Output directory: " + outputDirectory);
 		
 		CodeGenerator codeGenerator = new CodeGenerator(method, defuzz);
 		codeGenerator.generateCpp(cpppath);
 		codeGenerator.generateHeader(headerpath);
-		codeGenerator.generateTestBench(testpath, fileName+".h");
+		codeGenerator.generateTestBench(testpath, fileName+"_out.h");
 	}
 }
-//#line 767 "Parser.java"
+//#line 770 "Parser.java"
 //###############################################################
 // method: yylexdebug : check lexer state
 //###############################################################
@@ -1236,7 +1239,7 @@ case 63:
 //#line 154 ".\Gramatica.y"
 {currentDefuzz = new CentroidDefuzz();}
 break;
-//#line 1163 "Parser.java"
+//#line 1166 "Parser.java"
 //########## END OF USER-SUPPLIED ACTIONS ##########
     }//switch
     //#### Now let's reduce... ####

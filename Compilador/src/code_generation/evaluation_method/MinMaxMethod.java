@@ -18,9 +18,9 @@ public class MinMaxMethod extends EvalMethod{
 		
 		Writer.file.write(" #pragma HLS PIPELINE \n");
 		for(int i=0; i<IOVars.inVars.size(); i++)
-			Writer.file.write(" #pragma #pragma HLS ARRAY_PARTITION variable=" + IOVars.inVars.get(i).getName() + "Fuzz complete dim=1 \n" );
+			Writer.file.write(" #pragma HLS ARRAY_PARTITION variable=" + IOVars.inVars.get(i).getName() + "Fuzz complete dim=1 \n" );
 		for(int i=0; i<IOVars.outVars.size(); i++)
-			Writer.file.write(" #pragma #pragma HLS ARRAY_PARTITION variable=" + IOVars.outVars.get(i).getName() + "MembershipValues complete dim=1 \n" );
+			Writer.file.write(" #pragma HLS ARRAY_PARTITION variable=" + IOVars.outVars.get(i).getName() + "MembershipValues complete dim=1 \n" );
 		
 		Writer.file.write("\n");
 		Writer.file.write("\tfixed_int aux = 0; \n");
