@@ -420,7 +420,7 @@ final static String yyrule[] = {
 "defuzz_type : CENTROID",
 };
 
-//#line 158 ".\Gramatica.y"
+//#line 160 ".\Gramatica.y"
 
 private LexicalAnalyzer lex;
 private EvalMethod method;
@@ -1049,194 +1049,194 @@ case 14:
 {yyerror("Missing declaration body");}
 break;
 case 15:
-//#line 58 ".\Gramatica.y"
-{}
-break;
-case 16:
 //#line 59 ".\Gramatica.y"
 {}
 break;
+case 16:
+//#line 60 ".\Gramatica.y"
+{}
+break;
 case 17:
-//#line 62 ".\Gramatica.y"
+//#line 63 ".\Gramatica.y"
 {addDeclaration(val_peek(1).sval, val_peek(3).sval);}
 break;
 case 18:
-//#line 63 ".\Gramatica.y"
+//#line 64 ".\Gramatica.y"
 { yyerror("Missing semicolon"); }
 break;
 case 20:
-//#line 66 ".\Gramatica.y"
+//#line 67 ".\Gramatica.y"
 {}
 break;
 case 21:
-//#line 71 ".\Gramatica.y"
+//#line 72 ".\Gramatica.y"
 { checkMissingDeclarations(); yyout("-- Fuzz"); }
 break;
 case 22:
-//#line 72 ".\Gramatica.y"
-{yyerror("Missing fuzz body");}
-break;
-case 23:
 //#line 73 ".\Gramatica.y"
 {yyerror("Missing fuzz body");}
 break;
+case 23:
+//#line 74 ".\Gramatica.y"
+{yyerror("Missing fuzz body");}
+break;
 case 24:
-//#line 76 ".\Gramatica.y"
+//#line 77 ".\Gramatica.y"
 {}
 break;
 case 26:
-//#line 80 ".\Gramatica.y"
+//#line 81 ".\Gramatica.y"
 { addVarFuzzDefinition(val_peek(4).sval); }
 break;
 case 27:
-//#line 81 ".\Gramatica.y"
+//#line 82 ".\Gramatica.y"
 { yyerror("Missing semicolon"); }
 break;
 case 28:
-//#line 84 ".\Gramatica.y"
-{}
-break;
-case 29:
 //#line 85 ".\Gramatica.y"
 {}
 break;
+case 29:
+//#line 86 ".\Gramatica.y"
+{}
+break;
 case 30:
-//#line 88 ".\Gramatica.y"
+//#line 89 ".\Gramatica.y"
 { addFuzzySet(val_peek(6).sval); }
 break;
 case 31:
-//#line 89 ".\Gramatica.y"
+//#line 90 ".\Gramatica.y"
 { yyerror("Missing semicolon"); }
 break;
 case 32:
-//#line 92 ".\Gramatica.y"
+//#line 93 ".\Gramatica.y"
 { currentFuzzSet = new TriangularFS(); }
 break;
 case 33:
-//#line 93 ".\Gramatica.y"
+//#line 94 ".\Gramatica.y"
 { currentFuzzSet = new SingletonFS(); }
 break;
 case 34:
-//#line 94 ".\Gramatica.y"
+//#line 95 ".\Gramatica.y"
 { currentFuzzSet = new SShapeFS(); }
 break;
 case 35:
-//#line 95 ".\Gramatica.y"
+//#line 96 ".\Gramatica.y"
 { currentFuzzSet = new ZShapeFS(); }
 break;
 case 36:
-//#line 96 ".\Gramatica.y"
+//#line 97 ".\Gramatica.y"
 { currentFuzzSet = new TrapezoidFS();}
 break;
 case 37:
-//#line 98 ".\Gramatica.y"
+//#line 99 ".\Gramatica.y"
 { addFuzzySetParameter(val_peek(0).sval); }
 break;
 case 38:
-//#line 99 ".\Gramatica.y"
+//#line 100 ".\Gramatica.y"
 { fuzzySetParameters.clear();
 							 addFuzzySetParameter(val_peek(0).sval); }
 break;
 case 39:
-//#line 103 ".\Gramatica.y"
+//#line 104 ".\Gramatica.y"
 {}
 break;
 case 40:
-//#line 108 ".\Gramatica.y"
+//#line 109 ".\Gramatica.y"
 { checkMissingRules();
 																	 if(!errorsFound) { method.setMatrix(this.rulesMatrix); }; 
 																	 yyout("-- Rules");}
 break;
 case 41:
-//#line 111 ".\Gramatica.y"
+//#line 112 ".\Gramatica.y"
 { yyerror("Missing rules form"); }
 break;
 case 42:
-//#line 112 ".\Gramatica.y"
-{ yyerror("Missing rules body"); }
-break;
-case 43:
 //#line 113 ".\Gramatica.y"
 { yyerror("Missing rules body"); }
 break;
-case 44:
+case 43:
 //#line 114 ".\Gramatica.y"
+{ yyerror("Missing rules body"); }
+break;
+case 44:
+//#line 115 ".\Gramatica.y"
 { yyerror("Missing rules evaluation method"); }
 break;
 case 45:
-//#line 117 ".\Gramatica.y"
-{method = new MinMaxMethod();}
-break;
-case 46:
 //#line 118 ".\Gramatica.y"
 {method = new MinMaxMethod();}
 break;
+case 46:
+//#line 119 ".\Gramatica.y"
+{method = new MinMaxMethod();}
+break;
 case 47:
-//#line 121 ".\Gramatica.y"
+//#line 122 ".\Gramatica.y"
 { checkRulesForm(); if(!errorsFound) { generateRulesCombinations(); initMatrix(); }}
 break;
 case 48:
-//#line 124 ".\Gramatica.y"
-{}
-break;
-case 49:
 //#line 125 ".\Gramatica.y"
 {}
 break;
+case 49:
+//#line 126 ".\Gramatica.y"
+{}
+break;
 case 50:
-//#line 128 ".\Gramatica.y"
+//#line 129 ".\Gramatica.y"
 { if(!ruleFormErrors && rulesFormDefined){ checkRule(); } }
 break;
 case 51:
-//#line 129 ".\Gramatica.y"
+//#line 130 ".\Gramatica.y"
 { yyerror("Missing semicolon"); }
 break;
 case 52:
-//#line 131 ".\Gramatica.y"
+//#line 133 ".\Gramatica.y"
 { expressionList.clear(); addExpression(val_peek(0).sval);}
 break;
 case 53:
-//#line 132 ".\Gramatica.y"
+//#line 134 ".\Gramatica.y"
 {addExpression(val_peek(0).sval);}
 break;
 case 54:
-//#line 135 ".\Gramatica.y"
+//#line 137 ".\Gramatica.y"
 {resultList.clear(); addResult(val_peek(0).sval);}
 break;
 case 55:
-//#line 136 ".\Gramatica.y"
+//#line 138 ".\Gramatica.y"
 {addResult(val_peek(0).sval);}
 break;
 case 56:
-//#line 141 ".\Gramatica.y"
+//#line 143 ".\Gramatica.y"
 {checkMissingDefuzz(); yyout("-- Defuzz");}
 break;
 case 57:
-//#line 142 ".\Gramatica.y"
+//#line 144 ".\Gramatica.y"
 { yyerror("Missing defuzz body"); }
 break;
 case 58:
-//#line 143 ".\Gramatica.y"
+//#line 145 ".\Gramatica.y"
 { yyerror("Missing defuzz body"); }
 break;
 case 59:
-//#line 146 ".\Gramatica.y"
+//#line 148 ".\Gramatica.y"
 {}
 break;
 case 60:
-//#line 147 ".\Gramatica.y"
+//#line 149 ".\Gramatica.y"
 {}
 break;
 case 61:
-//#line 150 ".\Gramatica.y"
+//#line 152 ".\Gramatica.y"
 {addDefuzzifier(val_peek(3).sval);}
 break;
 case 62:
-//#line 151 ".\Gramatica.y"
+//#line 153 ".\Gramatica.y"
 { yyerror("Missing semicolon"); }
 break;
 case 63:
-//#line 154 ".\Gramatica.y"
+//#line 156 ".\Gramatica.y"
 {currentDefuzz = new CentroidDefuzz();}
 break;
 //#line 1166 "Parser.java"
