@@ -28,7 +28,7 @@ public class MinMaxMethod extends EvalMethod{
 			for(int conjunto = 0; conjunto < IOVars.outVars.get(columns - j - 1).getSize(); conjunto++) {
 				isFirst = true;
 				for(int i=0; i<rows; i++) {
-					if(rulesMatrix[i][j] == conjunto) {
+					if(rulesMatrix.get(i)[j] == conjunto) {
 						compileRow(isFirst, i, columns-j-1, conjunto);
 						Writer.file.write("\n");
 						isFirst = false;
@@ -47,7 +47,7 @@ public class MinMaxMethod extends EvalMethod{
 									"[" + setNumber + "] = min(");
 			for(int inVar=0; inVar<IOVars.inVars.size(); inVar++) {
 				Writer.file.write(IOVars.inVars.get(inVar).getName() + "Fuzz[" +
-										rulesMatrix[row][inVar] + "]");
+										rulesMatrix.get(row)[inVar] + "]");
 				if(inVar != IOVars.inVars.size()-1)
 					Writer.file.write(",");
 			}
@@ -57,7 +57,7 @@ public class MinMaxMethod extends EvalMethod{
 			Writer.file.write("aux = min(");
 			for(int inVar=0; inVar<IOVars.inVars.size(); inVar++) {
 				Writer.file.write(IOVars.inVars.get(inVar).getName() + "Fuzz[" +
-										rulesMatrix[row][inVar] + "]");
+										rulesMatrix.get(row)[inVar] + "]");
 				if(inVar != IOVars.inVars.size()-1)
 					Writer.file.write(", ");
 			}

@@ -72,7 +72,7 @@ public class Variable {
 	}
 
 	public void compileBuffer(String bufferType) throws IOException {
-		Writer.file.write("fixed_int " + name.toLowerCase() + bufferType + 
+		Writer.file.write("fixed_int " + name + bufferType + 
 								"[" + this.getSize() + "] = {0");
 
 		for(int j=0; j<this.getSize() - 1; j++) 

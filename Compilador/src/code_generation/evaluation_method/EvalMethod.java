@@ -1,29 +1,30 @@
 package code_generation.evaluation_method;
 
 import java.io.IOException;
+import java.util.Vector;
 
 public abstract class EvalMethod {
 	
-	protected int rulesMatrix[][];
+	protected Vector<int[]> rulesMatrix = new Vector<int[]>();
 	protected int rows = 0; //Number of rules
 	protected int columns = 0; //Number of variables
 	protected String type;
 	
-	public EvalMethod(String type, int matrix[][]) {
+	public EvalMethod(String type, Vector<int[]> matrix) {
 		this.type = type;
 		this.rulesMatrix = matrix;
-		rows = matrix.length;
-		columns = matrix[1].length;
+		rows = matrix.size();
+		columns = matrix.get(0).length;
 	}
 	
 	public EvalMethod(String type) {		
 		this.type = type;
 	}
 	
-	public void setMatrix(int matrix[][]) {
+	public void setMatrix(Vector<int[]> matrix) {
 		this.rulesMatrix = matrix;
-		rows = matrix.length;
-		columns = matrix[1].length;
+		rows = matrix.size();
+		columns = matrix.get(0).length;
 	}
 	
 	public int getRows() {
@@ -51,7 +52,7 @@ public abstract class EvalMethod {
 	public void printMatrix() {
 		for(int i=0; i<rows; i++) {
 			for(int j=0; j<columns; j++) {
-				System.out.print(rulesMatrix[i][j] + " | ");
+				System.out.print(rulesMatrix.get(i)[j] + " | ");
 			}
 			System.out.println("");
 		}

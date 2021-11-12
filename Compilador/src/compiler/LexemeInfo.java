@@ -10,6 +10,7 @@ public class LexemeInfo {
 	public String fuzzType = "-"; // Algorithm used in fuzzification
 	
 	public int fuzzSetPosition = 0; //Fuzzy set index in variable vector
+	public int varPosition = 0; //Variable position on the template rule
 	public int varSize = 0; //Number of fuzzy sets associated with the variable
 	
 	public boolean setDeclared = false; // Set true when fuzzy_set declaration found

@@ -25,8 +25,8 @@ public class CodeGenerator {
 	public void generateCpp(String outputPath) {
 		 try {
 			 Writer.openFile(outputPath);
-			 Writer.file.write( "#include <iostream> \n" + 
-					 				 "#include <ap_int.h> \n \n" );
+			 Writer.file.write( "#include <iostream> \n" );
+			 Writer.file.write( "#include <ap_int.h> \n \n" );
 			 
 			 Writer.file.write( "typedef ap_uint<" + IOVars.converterSize + "> fixed_int; \n" );
 			 
@@ -42,7 +42,7 @@ public class CodeGenerator {
 			 					 	 
 			 
 			 fuzzifier.compileFunctionsSlope();
-			 fuzzifier.compilerInputVariablesBuffers();
+			 fuzzifier.compileInputVariablesBuffers();
 			 for(String var: defuzzifiers.keySet())
 				 defuzzifiers.get(var).compileOutputVariablesBuffers();
 			 

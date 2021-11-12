@@ -18,7 +18,7 @@ public class Fuzzifier {
 		}
 	}
 	
-	public void compilerInputVariablesBuffers() throws IOException {
+	public void compileInputVariablesBuffers() throws IOException {
 		for(int i=0; i<IOVars.inVars.size(); i++) {
 			IOVars.inVars.get(i).compileBuffer("Fuzz");
 		}

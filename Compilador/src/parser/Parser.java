@@ -436,8 +436,7 @@ private Vector<String> expressionList;
 private Vector<String> resultList;
 private String[] ruleOrder;
 private HashSet<String> rulesCombinations;
-private int rulesMatrix[][];
-private int matrixRow = 0;
+private Vector<int[]> rulesMatrix;
 
 private Defuzzifier currentDefuzz;
 private int numberOfDefuzzifiers = 0;
@@ -709,28 +708,21 @@ private void checkRulesForm(){
 
 private void initMatrix(){
 
-	int rows = 0;
-	int columns = 0;
-	
-	rows = IOVars.inVars.get(0).getSize();
-	for(int i = 1; i < IOVars.inVars.size(); i++) {
-		rows = rows * IOVars.inVars.get(i).getSize();
-	}
-	columns = IOVars.inVars.size() + IOVars.outVars.size();
-	
-	rulesMatrix = new int[rows][columns];
+	rulesMatrix = new Vector<int[]>();
 	
 }
 
 private void checkRule(){
 	
 	String combination = null;
+	int[] auxRule = new int[IOVars.inVars.size() + IOVars.outVars.size()];
+	
 	int inVarsUsed = 0;
 	for(int i=0; i<expressionList.size(); i++){
 		String fuzzySetName = ruleOrder[i] + "_" + expressionList.get(i);
 		if(Compiler.table.containsKey(fuzzySetName)){
 			if(!errorsFound){
-				rulesMatrix[matrixRow][i] = Compiler.table.get(fuzzySetName).fuzzSetPosition;
+				auxRule[i] = Compiler.table.get(fuzzySetName).fuzzSetPosition;
 				inVarsUsed++;				
 				if(combination == null)
 					combination = String.valueOf(Compiler.table.get(fuzzySetName).fuzzSetPosition);
@@ -756,7 +748,7 @@ private void checkRule(){
 		String fuzzySetName = ruleOrder[IOVars.inVars.size() + i] + "_" + resultList.get(i);
 		if(Compiler.table.containsKey(fuzzySetName)){
 			if(!errorsFound){
-				rulesMatrix[matrixRow][IOVars.inVars.size() + i] = Compiler.table.get(fuzzySetName).fuzzSetPosition;
+				auxRule[IOVars.inVars.size() + i] = Compiler.table.get(fuzzySetName).fuzzSetPosition;
 				outVarsUsed++;
 			}
 		}
@@ -768,7 +760,7 @@ private void checkRule(){
 	if(!errorsFound && outVarsUsed < IOVars.outVars.size())
 		yyerror("Parameters missing on right side");
 	
-	matrixRow++;
+	rulesMatrix.add(auxRule);
 		
 }
 
@@ -838,7 +830,7 @@ public void generateCode(){
 		codeGenerator.generateTestBench(testpath, fileName+"_out.h");
 	}
 }
-//#line 770 "Parser.java"
+//#line 762 "Parser.java"
 //###############################################################
 // method: yylexdebug : check lexer state
 //###############################################################
@@ -1239,7 +1231,7 @@ case 63:
 //#line 156 ".\Gramatica.y"
 {currentDefuzz = new CentroidDefuzz();}
 break;
-//#line 1166 "Parser.java"
+//#line 1158 "Parser.java"
 //########## END OF USER-SUPPLIED ACTIONS ##########
     }//switch
     //#### Now let's reduce... ####
