@@ -129,10 +129,8 @@ public class LexicalAnalyzer {
 						return Compiler.table.get(currentLexeme).tokenNumber;
 					}
 				else
-					if(currentChar == -1)
-						return 0;
-					else
-						if(state == -2)
+					if(state == -2)
+						if(currentChar >= 0)					
 							MainFrame.printOutput("Line: " + lineNumber + " ERROR: Unknown symbol");
 			}
 			else

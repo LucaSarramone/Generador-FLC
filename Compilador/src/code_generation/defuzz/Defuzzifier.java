@@ -16,7 +16,7 @@ public abstract class Defuzzifier {
 		return this.type;
 	}
 	
-	public void compileOutputVariablesBuffers() throws IOException {
+	public static void compileOutputVariablesBuffers() throws IOException {
 		for(int i=0; i<IOVars.outVars.size(); i++) {
 			IOVars.outVars.get(i).compileBuffer("MembershipValues");
 		}

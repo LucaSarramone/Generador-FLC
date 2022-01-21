@@ -37,7 +37,7 @@ public class SingletonFS extends FuzzySet {
 	}
 
 	@Override
-	public void compileFunctionSlope(String nombreVar) throws IOException { /**Sin pendiente**/ }
+	public void compileFunctionSlope(String varName) throws IOException { /**Sin pendiente**/ }
 
 	@Override
 	public boolean setParameters(Vector<Integer> parameters) {

@@ -643,6 +643,7 @@ private void checkRulesForm(){
 		if(inVar.fuzzDeclared && inVar.varType.equals("IN") && inVar.idRole.equals("variable")){
 			if(!inVar.useInRule){
 				ruleOrder[i] = expressionList.get(i);
+				inVar.varColumn = i;
 				inVar.useInRule = true;
 				inVarsUsed++;
 			}
@@ -667,7 +668,7 @@ private void checkRulesForm(){
 	}
 	else{
 		if(inVarsUsed == 1){
-			yyerror("Rules must have more than one input variable");
+			yywarning("Controller only has one input variable?");
 			ruleFormErrors = true;
 		}
 	}
@@ -679,6 +680,7 @@ private void checkRulesForm(){
 		if(outVar.fuzzDeclared && outVar.varType.equals("OUT") && outVar.idRole.equals("variable")){
 			if(!outVar.useInRule){
 				ruleOrder[IOVars.inVars.size() + i] = resultList.get(i);
+				outVar.varColumn = IOVars.inVars.size() + i;
 				outVar.useInRule = true;
 				outVarsUsed++;
 			}
@@ -830,7 +832,7 @@ public void generateCode(){
 		codeGenerator.generateTestBench(testpath, fileName+"_out.h");
 	}
 }
-//#line 762 "Parser.java"
+//#line 764 "Parser.java"
 //###############################################################
 // method: yylexdebug : check lexer state
 //###############################################################
@@ -1231,7 +1233,7 @@ case 63:
 //#line 156 ".\Gramatica.y"
 {currentDefuzz = new CentroidDefuzz();}
 break;
-//#line 1158 "Parser.java"
+//#line 1160 "Parser.java"
 //########## END OF USER-SUPPLIED ACTIONS ##########
     }//switch
     //#### Now let's reduce... ####

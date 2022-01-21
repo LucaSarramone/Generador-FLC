@@ -43,8 +43,8 @@ public class CodeGenerator {
 			 
 			 fuzzifier.compileFunctionsSlope();
 			 fuzzifier.compileInputVariablesBuffers();
-			 for(String var: defuzzifiers.keySet())
-				 defuzzifiers.get(var).compileOutputVariablesBuffers();
+			 Defuzzifier.compileOutputVariablesBuffers();
+
 			 
 			 Writer.file.write("\n \n");
 			 
@@ -71,14 +71,20 @@ public class CodeGenerator {
 			 Writer.file.write("\trulesEvaluation(); \n");
 			 
 			 Writer.file.write("\n");
-			 Writer.file.write("\tfixed_out output = defuzzifier" +  IOVars.outVars.get(0).getName() + "(); \n");
 			 
-			for(int i=1; i<IOVars.outVars.size(); i++ ){ 
-				Writer.file.write("\toutput <<" + IOVars.converterSize +";\n");
-				Writer.file.write("\toutput = output + defuzzifier" + IOVars.outVars.get(i).getName() + "();\n");
+			 String returnExpression = "output0";
+			 for(int i=0; i<IOVars.outVars.size(); i++ ){ 
+				Writer.file.write("\tfixed_out output" + i + " = defuzzifier" +  IOVars.outVars.get(i).getName() + "()");
+				if(i <= 0)
+					Writer.file.write(";\n");
+				else {
+					Writer.file.write(" <<" + IOVars.converterSize * i +";\n");
+					returnExpression = returnExpression + " + output" + i;
+				}
+						
 			}
 			
-			Writer.file.write("\treturn output;\n");
+			Writer.file.write("\treturn " + returnExpression + ";\n");
 			Writer.file.write("}\n");
 			 
 			 Writer.closeFile();

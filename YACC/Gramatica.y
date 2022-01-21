@@ -379,6 +379,7 @@ private void checkRulesForm(){
 		if(inVar.fuzzDeclared && inVar.varType.equals("IN") && inVar.idRole.equals("variable")){
 			if(!inVar.useInRule){
 				ruleOrder[i] = expressionList.get(i);
+				inVar.varColumn = i;
 				inVar.useInRule = true;
 				inVarsUsed++;
 			}
@@ -403,7 +404,7 @@ private void checkRulesForm(){
 	}
 	else{
 		if(inVarsUsed == 1){
-			yyerror("Rules must have more than one input variable");
+			yywarning("Controller only has one input variable?");
 			ruleFormErrors = true;
 		}
 	}
@@ -415,6 +416,7 @@ private void checkRulesForm(){
 		if(outVar.fuzzDeclared && outVar.varType.equals("OUT") && outVar.idRole.equals("variable")){
 			if(!outVar.useInRule){
 				ruleOrder[IOVars.inVars.size() + i] = resultList.get(i);
+				outVar.varColumn = IOVars.inVars.size() + i;
 				outVar.useInRule = true;
 				outVarsUsed++;
 			}

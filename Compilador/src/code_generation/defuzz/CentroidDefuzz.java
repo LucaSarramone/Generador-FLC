@@ -20,10 +20,10 @@ public class CentroidDefuzz extends Defuzzifier{
 		Writer.file.write("fixed_int defuzzifier" + varName + "() {\n");
 
 		Writer.file.write(" #pragma HLS PIPELINE \n");
-		for(int i=0; i<IOVars.outVars.size(); i++) {
-			Writer.file.write(" #pragma HLS ARRAY_PARTITION variable=" + IOVars.outVars.get(i).getName() + "MembershipValues complete dim=1 \n" );
-			Writer.file.write(" #pragma HLS ARRAY_PARTITION variable=outputValues" + IOVars.outVars.get(i).getName() + " complete dim=1 \n" );
-		}
+		
+		Writer.file.write(" #pragma HLS ARRAY_PARTITION variable=" + IOVars.outVars.get(varNumber).getName() + "MembershipValues complete dim=1 \n" );
+		Writer.file.write(" #pragma HLS ARRAY_PARTITION variable=outputValues" + IOVars.outVars.get(varNumber).getName() + " complete dim=1 \n" );
+
 		
 		Writer.file.write("\n");
 		
@@ -44,10 +44,7 @@ public class CentroidDefuzz extends Defuzzifier{
 
 
 	@Override
-	public
-	
-	
-	void compileHeader(int varNumber) throws IOException{
+	public void compileHeader(int varNumber) throws IOException{
 		String varName = IOVars.outVars.get(varNumber).getName();
 		
 		Writer.file.write("fixed_int defuzzifier" + varName + "();\n");
