@@ -1,0 +1,138 @@
+autoenfoque <8>:
+	BEGIN
+		DECLARE {
+			izq : IN;
+			cen : IN;
+			der : IN;
+			prob_izq : OUT;
+			prob_cen : OUT;
+			prob_der : OUT;
+		}
+		
+		FUZZ {
+			izq {
+			  ce = Z_SHAPE(0, 23);
+			  me = TRIANGULAR(0, 23, 100); 
+			  le = S_SHAPE(23, 100);
+			};
+			cen {
+ 			  ce = Z_SHAPE(0, 23);
+			  me = TRIANGULAR(0, 23, 100);
+			  le = S_SHAPE(23, 100);
+			};
+			der {
+			  ce = Z_SHAPE(0, 23);
+			  me = TRIANGULAR(0, 23, 100);
+			  le = S_SHAPE(23, 100);
+			};
+			prob_izq {
+			  po = SINGLETON(76);
+			  me = SINGLETON(127);
+			  al = SINGLETON(204);
+			  ma = SINGLETON(255);
+			};
+			prob_cen {
+			  po = SINGLETON(76);
+			  me = SINGLETON(127);
+			  al = SINGLETON(204);
+			  ma = SINGLETON(255);
+			};
+			prob_der {
+			  po = SINGLETON(76);
+			  me = SINGLETON(127);
+			  al = SINGLETON(204);
+			  ma = SINGLETON(255);
+			};
+		}
+		RULES <MINMAX> { (izq * cen * der = prob_izq, prob_cen, prob_der)
+			
+			ce * ce * ce = me, me, me;
+			ce * ce * ce = po, me, me;
+			ce * ce * ce = me, me, po;
+			ce * ce * ce = po, me, po;
+			ce * ce * ce = me, al, me;
+			ce * ce * ce = po, al, me;
+			ce * ce * ce = me, al, po;
+			ce * ce * ce = po, al, po;
+
+			
+			ce * ce * me = me, me, al;
+			ce * ce * me = po, me, al;
+			
+			ce * ce * le = me, me, po;
+			ce * ce * le = po, me, po;
+			
+			ce * me * ce = me, al, me;
+			
+			ce * me * me = me, al, al;
+			ce * me * me = me, al, po;
+			
+			ce * me * le = me, al, po;
+			
+			ce * le * ce = me, po, me;
+			ce * le * ce = me, me, me;
+			ce * le * ce = me, al, me;
+			ce * le * ce = me, ma, me;
+			
+			ce * le * me = me, po, al;
+			
+			ce * le * le = me, po, po;
+			ce * le * le = me, me, po;
+			ce * le * le = me, al, po;
+			ce * le * le = me, ma, po;
+			
+			me * ce * ce = al, me, me;
+			me * ce * ce = al, me, po;
+			
+			me * ce * me = al, me, al;
+			
+			me * ce * le = al, me, po;
+			
+			me * me * ce = al, al, me;
+			me * me * ce = po, al, me;
+			
+			me * me * me = al, al, al;
+			me * me * me = po, al, al;
+			me * me * me = al, al, po;
+			me * me * me = po, al, po;
+			me * me * me = al, ma, al;
+			me * me * me = po, ma, al;
+			me * me * me = al, ma, po;
+			me * me * me = po, ma, po;
+			
+			me * me * le = al, al, po;
+			me * me * le = po, al, po;
+			
+			me * le * ce = al, po, me;
+			me * le * me = al, po, al;
+			me * le * le = al, po, po;
+						
+			le * ce * ce = po, me, me;
+			le * ce * ce = po, me, po;
+			
+			le * ce * me = po, me, al;
+			
+			le * ce * le = po, me, po;
+			
+			le * me * ce = po, al, me;
+			
+			le * me * me = po, al, al;
+			le * me * me = po, al, po;
+			
+			le * me * le = po, al, po;
+			
+			le * le * ce = po, po, me;
+			le * le * ce = po, me, me;
+			le * le * ce = po, al, me;
+			le * le * ce = po, ma, me;
+			
+			le * le * me = po, po, al;
+			
+			le * le * le = po, al, po;
+		}
+		DEFUZZ{
+			prob_izq = CENTROID;
+			prob_cen = CENTROID;
+			prob_der = CENTROID;
+		}
+	END;

@@ -1,0 +1,82 @@
+estacionamiento_camion_marcha_atras <8>:
+	BEGIN
+		DECLARE {
+			posicion : IN;
+			anguloCamion : IN;
+			anguloDireccion : OUT;
+		}
+		
+		FUZZ {
+			posicion {
+			  le = Z_SHAPE(30, 96);
+			  lc = TRIANGULAR(76, 102, 127);
+			  ce = TRIANGULAR(114, 127, 140);
+			  rc = TRIANGULAR(127, 153, 178);
+			  ri = S_SHAPE(158, 224);
+			};
+			anguloCamion {
+			  rb = TRIANGULAR(0, 31, 70);
+			  ru = TRIANGULAR(58, 82, 106);
+			  rv = TRIANGULAR(93, 110, 127);
+			  ve = TRIANGULAR(119, 127, 136);
+			  lv = TRIANGULAR(127, 144, 161);
+			  lu = TRIANGULAR(148, 172, 196);
+			  lb = TRIANGULAR(184, 223, 255);
+			};
+			anguloDireccion {
+				nb = SINGLETON(29);
+				nm = SINGLETON(63);
+				ns = SINGLETON(99);
+				ze = SINGLETON(127);
+				ps = SINGLETON(155);
+				pm = SINGLETON(191);
+				pb = SINGLETON(225);
+			};
+		}
+		RULES <MINMAX> { (anguloCamion * posicion = anguloDireccion)
+			rb * le = ps;
+			rb * lc = pm;
+			rb * ce = pm;
+			rb * rc = pb;
+			rb * ri = pb;
+
+			ru * le = ns;
+			ru * lc = ps;
+			ru * ce = pm;
+			ru * rc = pb;
+			ru * ri = pb;
+
+			rv * le = nm;
+			rv * lc = ns;
+			rv * ce = ps;
+			rv * rc = pm;
+			rv * ri = pb;
+
+			ve * le = nm;
+			ve * lc = nm;
+			ve * ce = ze;
+			ve * rc = pm;
+			ve * ri = pm;
+
+			lv * le = nb;
+			lv * lc = nm;
+			lv * ce = ns;
+			lv * rc = ps;
+			lv * ri = pm;
+
+			lu * le = nb;
+			lu * lc = nb;
+			lu * ce = nm;
+			lu * rc = ns;
+			lu * ri = ps;
+
+			lb * le = nb;
+			lb * lc = nb;
+			lb * ce = nm;
+			lb * rc = nm;
+			lb * ri = ns;
+		}
+		DEFUZZ{
+			anguloDireccion = CENTROID;
+		}
+	END;
